@@ -22,6 +22,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		<apache.common.beanutils>1.9.3</apache.common.beanutils>
 	</properties>
 
 	<dependencies>
@@ -45,6 +46,14 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- Apache common start -->
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>${apache.common.beanutils}</version><!--$NO-MVN-MAN-VER$-->
+		</dependency>
+		<!-- Apache common end -->
 	</dependencies>
 
 	<build>
