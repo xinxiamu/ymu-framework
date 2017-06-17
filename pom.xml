@@ -23,6 +23,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<apache.common.beanutils>1.9.3</apache.common.beanutils>
+		<zxing.version>3.3.0</zxing.version>
 	</properties>
 
 	<dependencies>
@@ -51,9 +52,17 @@
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
-			<version>${apache.common.beanutils}</version><!--$NO-MVN-MAN-VER$-->
+			<version>${apache.common.beanutils}</version><!--$NO-MVN-MAN-VER$ -->
 		</dependency>
 		<!-- Apache common end -->
+
+		<!-- 二维码，条形码zxing start -->
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>javase</artifactId>
+			<version>${zxing.version}</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
