@@ -1,4 +1,4 @@
-package com.ymu.framework.web;
+package com.ymu.framework.web.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
