@@ -23,6 +23,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<apache.common.beanutils>1.9.3</apache.common.beanutils>
+		<apache.common.io.version>2.5</apache.common.io.version>
 		<zxing.version>3.3.0</zxing.version>
 	</properties>
 
@@ -69,6 +70,19 @@
 			<version>${zxing.version}</version>
 		</dependency>
 
+		<!-- apache 编码，解码的库 -->
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${apache.common.io.version}</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>
@@ -102,14 +116,9 @@
 					<!-- <destDir>ymu-framework</destDir> -->
 					<destDir></destDir>
 				</configuration>
-				<!-- <dependencies>
-					自动修复不规范注解
-					<dependency>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>clirr-maven-plugin</artifactId>
-						<version>2.8</version>
-					</dependency>
-				</dependencies> -->  
+				<!-- <dependencies> 自动修复不规范注解 <dependency> <groupId>org.codehaus.mojo</groupId> 
+					<artifactId>clirr-maven-plugin</artifactId> <version>2.8</version> </dependency> 
+					</dependencies> -->
 			</plugin>
 
 		</plugins>
