@@ -17,7 +17,7 @@ public class AESUtils {
 
 	public static void main(String[] args) throws Exception {
 		String keyStr = "4F979A45A894F20C0A3286593780C869";
-		String encodeStr = jdkAESEncode(keyStr, "我是中国人");
+		String encodeStr = jdkAESEncode(keyStr, "123456");
 		System.out.println(encodeStr);
 		System.out.println(jdkAESDecode(keyStr, encodeStr));
 	}
