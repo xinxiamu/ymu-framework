@@ -10,12 +10,11 @@ import org.apache.commons.codec.digest.DigestUtils;
  * 消息摘要算法-md5。
  * 应用场景：密码加密。
  */
-public class Md5Utils {
-
-	public static void main(String[] args) {
-		System.out.println(getCCMD5Str("a1234567"));
-		System.out.println(getJdkMD5Str("a1234567"));
+public final class Md5Utils {
+	
+	private Md5Utils() {
 	}
+
 
 	// ************************************* jdk md5 **********************//
 	
@@ -50,7 +49,7 @@ public class Md5Utils {
 	
 	//******************* apche common code **********************//
 	
-	public static String getCCMD5Str(String str) {
+	public final static String getCCMD5Str(String str) {
 		try {
 			return DigestUtils.md5Hex(str.getBytes("UTF-8"));
 		} catch (UnsupportedEncodingException e) {

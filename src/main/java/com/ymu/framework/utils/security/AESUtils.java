@@ -13,14 +13,10 @@ import org.apache.commons.codec.binary.Hex;
  * 
  * @author xinxiamu
  */
-public class AESUtils {
+public final class AESUtils {
+	
+	private AESUtils(){}
 
-	public static void main(String[] args) throws Exception {
-		String keyStr = "4F979A45A894F20C0A3286593780C869";
-		String encodeStr = jdkAESEncode(keyStr, "123456");
-		System.out.println(encodeStr);
-		System.out.println(jdkAESDecode(keyStr, encodeStr));
-	}
 
 	/**
 	 * AES加密。
@@ -31,7 +27,7 @@ public class AESUtils {
 	 *            要加密的字符串。
 	 * @return 返回加密后的十六进制字符串
 	 */
-	public static String jdkAESEncode(String hexKeyStr, String str) {
+	public final static String jdkAESEncode(String hexKeyStr, String str) {
 		try {
 			// key转换
 			Key key = new SecretKeySpec(Hex.decodeHex(hexKeyStr.toCharArray()),
@@ -58,7 +54,7 @@ public class AESUtils {
 	 *            要解密的十六进制字符串。
 	 * @return
 	 */
-	public static String jdkAESDecode(String hexKeyStr, String encodeStr) {
+	public final static String jdkAESDecode(String hexKeyStr, String encodeStr) {
 		try {
 			// key转换
 			Key key = new SecretKeySpec(Hex.decodeHex(hexKeyStr.toCharArray()),

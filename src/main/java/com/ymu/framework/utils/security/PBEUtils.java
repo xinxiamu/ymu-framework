@@ -16,18 +16,9 @@ import org.apache.commons.codec.binary.Hex;
  * @author xinxiamu
  *
  */
-public class PBEUtils {
+public final class PBEUtils {
 
-	public static void main(String[] args) {
-		// String salt = generateSalt();
-		// System.out.println(salt);
-
-		String salt = "edeaf8effe683998";
-		String pwd = "701712";
-		String src = "我是中国人";
-		String encodeStr = jdkPBEWITHMD5andDES(salt, pwd, src,1);
-		System.out.println(encodeStr);
-		System.out.println(jdkPBEWITHMD5andDES(salt, pwd, encodeStr, 2));
+	private PBEUtils() {
 	}
 
 	/**
@@ -35,7 +26,7 @@ public class PBEUtils {
 	 * 
 	 * @return
 	 */
-	private static String generateSalt() {
+	public final static String generateSalt() {
 		SecureRandom secureRandom = new SecureRandom();
 		byte[] salt = secureRandom.generateSeed(8);
 		return Hex.encodeHexString(salt);
@@ -53,7 +44,7 @@ public class PBEUtils {
 	 * @param mode 1加密，其它解密。
 	 * @return
 	 */
-	public static String jdkPBEWITHMD5andDES(String saltHexStr,
+	public final static String jdkPBEWITHMD5andDES(String saltHexStr,
 			String pwd, String src, int mode) {
 		try {
 			// 根据口令生成密钥

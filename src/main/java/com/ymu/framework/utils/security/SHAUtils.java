@@ -10,20 +10,16 @@ import org.apache.commons.codec.digest.DigestUtils;
  * @author xinxiamu
  *
  */
-public class SHAUtils {
+public final class SHAUtils {
 
-	public static void main(String[] args) {
-		System.out.println(getCCSHA1Str("哈哈"));
-		System.out.println(getJdkSHA1Str("哈哈"));
-		System.out.println(getCCSHA256Str("哈哈"));
-	}
+	private SHAUtils(){}
 	
 	/**
 	 * sha1 160位。
 	 * @param str
 	 * @return
 	 */
-	public static String getJdkSHA1Str(String str) {
+	public final static String getJdkSHA1Str(String str) {
 		try {
 			MessageDigest messageDigest = MessageDigest.getInstance("SHA");
 			messageDigest.reset();
@@ -50,11 +46,11 @@ public class SHAUtils {
 		
 	}
 
-	public static String getCCSHA1Str(String str) {
+	public final static String getCCSHA1Str(String str) {
 		return DigestUtils.sha1Hex(str.getBytes());
 	}
 	
-	public static String getCCSHA256Str(String str) {
+	public final static String getCCSHA256Str(String str) {
 		return DigestUtils.sha256Hex(str.getBytes());
 	}
 }

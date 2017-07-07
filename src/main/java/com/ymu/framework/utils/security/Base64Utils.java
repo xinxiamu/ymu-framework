@@ -18,7 +18,7 @@ public final class Base64Utils {
 	 * @param encodeStr
 	 * @return
 	 */
-	public static String base64Encode(String encodeStr) {
+	public final static String base64Encode(String encodeStr) {
 		nullOrEmptyException(encodeStr);
 		byte[] encodeBytes = Base64.encodeBase64(encodeStr.getBytes());
 		return new String(encodeBytes);
@@ -30,7 +30,7 @@ public final class Base64Utils {
 	 * @param base64EncodeStr
 	 * @return
 	 */
-	public static String base64Decode(String base64EncodeStr) {
+	public final static String base64Decode(String base64EncodeStr) {
 		nullOrEmptyException(base64EncodeStr);
 		return new String(Base64.decodeBase64(base64EncodeStr.getBytes()));
 	}
@@ -39,13 +39,5 @@ public final class Base64Utils {
 		if (null == str || "".equals(str)) {
 			throw new NullPointerException("加密字符串不能为null或者空");
 		}
-	}
-
-	public static void main(String[] args) {
-		String str = "我是中国人";
-		String encode = base64Encode(str);
-		System.out.println(encode);
-		System.out.println("-------------");
-		System.out.println(base64Decode(encode));
 	}
 }

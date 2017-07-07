@@ -11,14 +11,6 @@ import org.apache.commons.codec.binary.Hex;
  */
 public class KeyTools {
 
-	public static void main(String[] args) {
-		String keyStr = KeyTools.generateKey(KeyEnum.AES.getValue(), 128);
-		System.out.println(keyStr.toUpperCase());
-		
-//		String keyStr2 = KeyTools.generateKey(KeyEnum.HMAC_MD5.getValue(), 0);
-//		System.out.println(keyStr2);
-	}
-
 	/**
 	 * 对称加密算法生成密钥。每次都不一样。
 	 * @param encodeType	加密类型。{@link KeyEnum}
