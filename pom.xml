@@ -24,7 +24,10 @@
 		<java.version>1.8</java.version>
 		<apache.common.beanutils>1.9.3</apache.common.beanutils>
 		<apache.common.io.version>2.5</apache.common.io.version>
+		<apache.common.lang.version>3.3.2</apache.common.lang.version>
+		<apache.common.collections4.version>4.0</apache.common.collections4.version>
 		<zxing.version>3.3.0</zxing.version>
+		<jodd.version>3.6.6</jodd.version>
 	</properties>
 
 	<dependencies>
@@ -43,6 +46,12 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+		<!-- email -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -55,19 +64,25 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- Apache common start -->
+		<!--////////// Apache common start /////////// -->
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
 			<version>${apache.common.beanutils}</version><!--$NO-MVN-MAN-VER$ -->
 		</dependency>
-		<!-- Apache common end -->
 
-		<!-- 二维码，条形码zxing start -->
+		<!-- apache的java.lang包扩展库。JAVA基础的、通用的操作和处理。，里面有很多的工具类 -->
 		<dependency>
-			<groupId>com.google.zxing</groupId>
-			<artifactId>javase</artifactId>
-			<version>${zxing.version}</version>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${apache.common.lang.version}</version>
+		</dependency>
+
+		<!-- apache java集合框架的加强使用库 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+			<version>${apache.common.collections4.version}</version>
 		</dependency>
 
 		<!-- apache 编码，解码的库 -->
@@ -82,6 +97,77 @@
 			<version>${apache.common.io.version}</version>
 		</dependency>
 
+		<!--///////// Apache common end /////////// -->
+
+		<!--////////// jodd,java常用工具包，包含字符串处理，日期处理，等等一系列java常用工具。 分模块引入 ////////////////// -->
+		<!-- http://jodd.org/ -->
+		<!-- 一些工具类，包括Printf、JDateTime、StringUtil、Fast buffers等等 -->
+		<dependency>
+			<groupId>org.jodd</groupId>
+			<artifactId>jodd-core</artifactId>
+			<version>${jodd.version}</version>
+		</dependency>
+		<!-- BeanUtil以及类型检查转换工具。未使用 -->
+		<dependency>
+			<groupId>org.jodd</groupId>
+			<artifactId>jodd-bean</artifactId>
+			<version>${jodd.version}</version>
+		</dependency>
+		<!-- 更简单易用的e-mail收发。未使用 -->
+		<dependency>
+			<groupId>org.jodd</groupId>
+			<artifactId>jodd-mail</artifactId>
+			<version>${jodd.version}</version>
+		</dependency>
+		<!-- HTML/XML解析器，包含Jerry和CSSelly，让你像jQuery一样筛选HTML节点 -->
+		<dependency>
+			<groupId>org.jodd</groupId>
+			<artifactId>jodd-lagarto</artifactId>
+			<version>${jodd.version}</version>
+		</dependency>
+		<!-- 更强大的Java Properties替代 -->
+		<dependency>
+			<groupId>org.jodd</groupId>
+			<artifactId>jodd-props</artifactId>
+			<version>${jodd.version}</version>
+		</dependency>
+
+		<!--////////// jodd,java常用工具包，包含字符串处理，日期处理，等等一系列java常用工具。 分模块引入 end ///////// -->
+
+		<!--///////// json处理 start /////////// -->
+		<!-- json处理库。 -->
+		<!-- Jackson JSON Processor 大数据量使用 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		<!-- gson 小数据量使用 -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+		</dependency>
+		<!-- ali fastjson 官网停用，文档缺乏,但是感觉比较好用 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.1.41</version>
+		</dependency>
+		<!--///////// json处理 end /////////// -->
+
+		<!-- 二维码，条形码zxing start -->
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>javase</artifactId>
+			<version>${zxing.version}</version>
+		</dependency>
 
 	</dependencies>
 
