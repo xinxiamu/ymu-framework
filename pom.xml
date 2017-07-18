@@ -169,6 +169,16 @@
 			<version>${zxing.version}</version>
 		</dependency>
 
+		<!--///////// itex pdf处理 start /////// -->
+		<!-- add all iText Core modules -->
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itext7-core</artifactId>
+			<version>7.0.3</version>
+			<type>pom</type>
+		</dependency>
+		<!--///////// itex pdf处理 end /////// -->
+
 	</dependencies>
 
 	<build>
