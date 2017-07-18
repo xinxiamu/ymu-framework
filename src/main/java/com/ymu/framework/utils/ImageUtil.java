@@ -23,7 +23,7 @@ import java.io.InputStreamReader;
 public class ImageUtil {
 
 	/**
-	 * 十六进制转换成图片。？？？？？？？？？？？？
+	 * 十六进制转换成图片。
 	 * @param hexFilePath 图片十六进制文本。c:/work/today.txt 
 	 * @param outImgPath	输出图片路径 "c:/work/dd.jpg"
 	 */
@@ -71,11 +71,11 @@ public class ImageUtil {
 		return val;
 	}
 	
-	public static void main(String[] args) {
-		String inputPath = "F:aa.txt";
-		String outputPath = "F:bb.jpg";
-		ImageUtil imageUtil = new ImageUtil();
-//		Hex2Image(inputPath, outputPath);
-		saveToImgFile("F077", outputPath);
-	}
+//	public static void main(String[] args) {
+//		String inputPath = "F:aa.txt";
+//		String outputPath = "F:/bb.jpg";
+//		ImageUtil imageUtil = new ImageUtil();  
+////		Hex2Image(inputPath, outputPath);
+//		saveToImgFile("F077", outputPath);
+//	}
 }
