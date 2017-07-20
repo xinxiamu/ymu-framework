@@ -474,8 +474,8 @@ class TimestampTypeAdapter implements JsonSerializer<Timestamp>,
 		return (jsonStr == null || jsonStr.equals("")) ? null : jsonStr;
 	}
 	
-	public static void main(String[] args) {
-		GsonBuilder builder = new GsonBuilder();
-		Gson gson = builder.create();
-	}
+//	public static void main(String[] args) {
+//		GsonBuilder builder = new GsonBuilder();
+//		Gson gson = builder.create();
+//	}
 }

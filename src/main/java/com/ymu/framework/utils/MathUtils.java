@@ -124,17 +124,17 @@ public class MathUtils {
 
 	}
 
-	public static void main(String[] args) {
-		final double EARTH_RADIUS = 6378137;
-
-		double distance = GetDistance(114.3265, 24.8345, 117.0307, 24.8345);
-		System.out.println("两点距离是:" + distance / 1000);
-
-		 System.out.println(getLat2(111100.0, 0.0000)[0] + "//////"
-		 + getLat2(111000.0, 0.0000)[1]);
-
-		Double[] c = getLng2(distance, 114.3265, 24.8345);
-		System.out.println(c[0] + "//////" + c[1]);
-
-	}
+//	public static void main(String[] args) {
+//		final double EARTH_RADIUS = 6378137;
+//
+//		double distance = GetDistance(114.3265, 24.8345, 117.0307, 24.8345);
+//		System.out.println("两点距离是:" + distance / 1000);
+//
+//		 System.out.println(getLat2(111100.0, 0.0000)[0] + "//////"
+//		 + getLat2(111000.0, 0.0000)[1]);
+//
+//		Double[] c = getLng2(distance, 114.3265, 24.8345);
+//		System.out.println(c[0] + "//////" + c[1]);
+//
+//	}
 }

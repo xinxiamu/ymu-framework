@@ -105,15 +105,15 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
 		return uuid.toString();
 	}
 	
-	public static void main(String[] args) {
-		 StringBuffer htmlStr = new StringBuffer();  
-	        htmlStr.append("<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>")  
-	               .append("<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en'><head><title>aaa</title><mce:script type='text/javascript'></mce:script>")  
-	               .append("<link href='static_files/help.css' mce_href='static_files/help.css' rel='stylesheet' type='text/css' media='all' />")  
-	               .append("</head><body><ul><li>XXXX</li></ul></body></html>")
-	               .append("<span style='line-height: 19px; font-family: 宋体; color: rgb(85,85,85)'>李志峰将货物来回老家，扣货要求货主赔偿，强迫货主到河南商丘处理，后货主按司机要求打钱，司机安排另一台车将货倒走，送到目的地。无论什么原因，扣货要挟的司机一律被列为驾驶员黑名单。</span></p>");  
-	          
-	        System.out.println(Html2Text(htmlStr.toString()));
-	}
+//	public static void main(String[] args) {
+//		 StringBuffer htmlStr = new StringBuffer();  
+//	        htmlStr.append("<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>")  
+//	               .append("<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en'><head><title>aaa</title><mce:script type='text/javascript'></mce:script>")  
+//	               .append("<link href='static_files/help.css' mce_href='static_files/help.css' rel='stylesheet' type='text/css' media='all' />")  
+//	               .append("</head><body><ul><li>XXXX</li></ul></body></html>")
+//	               .append("<span style='line-height: 19px; font-family: 宋体; color: rgb(85,85,85)'>李志峰将货物来回老家，扣货要求货主赔偿，强迫货主到河南商丘处理，后货主按司机要求打钱，司机安排另一台车将货倒走，送到目的地。无论什么原因，扣货要挟的司机一律被列为驾驶员黑名单。</span></p>");  
+//	          
+//	        System.out.println(Html2Text(htmlStr.toString()));
+//	}
 
 }

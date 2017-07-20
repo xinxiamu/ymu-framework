@@ -26,8 +26,8 @@ public class JoddEmailImpl implements JoddEmail {
 	    session.close();
 	}
 	
-	public static void main(String[] args) {
-		JoddEmailImpl joddEmailImpl = new JoddEmailImpl();
-		joddEmailImpl.sendEmailText();
-	}
+//	public static void main(String[] args) {
+//		JoddEmailImpl joddEmailImpl = new JoddEmailImpl();
+//		joddEmailImpl.sendEmailText();
+//	}
 }

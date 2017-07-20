@@ -896,7 +896,7 @@ public class DateUtil {
 		}
 	}
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 
 		// Date date = new Date();
 		// System.out.println("日期转字符串：" + DateUtil.DateToStr(date));
@@ -1016,7 +1016,7 @@ public class DateUtil {
 		System.out.println(getDateToString(date, "ddssS"));
 		System.out.println(getDateToString(date, "ddssSSS"));
 		System.out.println(getDateToString(date, "ddss.SSS"));
-	}
+	}*/
 
 	public static String getOneHoursAgoTimeString(int i) {
 		String oneHoursAgoTime = "";

@@ -764,7 +764,7 @@ public final class DateUtil2 {
         return false;
     }
  
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
  
         System.out.println(getPreviousMonthBegin());
         System.out.println(getPreviousMonthEnd());
@@ -797,7 +797,7 @@ public final class DateUtil2 {
         System.out.println(getPreviousMonth());
         List<Integer> yearList = get2007ToThisYear();
         List<String> monthList = getAllMonth();
-    }
+    }*/
  
     public static String addOneDay(String stopTime) {
         String finishTime = stopTime;
