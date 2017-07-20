@@ -177,9 +177,24 @@
 			<version>7.0.3</version>
 			<type>pom</type>
 		</dependency>
+
+		<!-- pdfHTML 尼玛的要钱的 -->
+		<!-- <dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>html2pdf</artifactId>
+			<version>1.0.0</version>
+		</dependency> -->
 		<!--///////// itex pdf处理 end /////// -->
 
 	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>itext</id>
+			<name>iText Repository - releases</name>
+			<url>https://repo.itextsupport.com/releases</url>
+		</repository>
+	</repositories>
 
 	<build>
 		<plugins>
