@@ -163,10 +163,24 @@
 		<!--///////// json处理 end /////////// -->
 
 		<!-- 二维码，条形码zxing start -->
+		<!-- https://mvnrepository.com/artifact/com.google.zxing/core -->
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>core</artifactId>
+			<version>${zxing.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.google.zxing</groupId>
 			<artifactId>javase</artifactId>
 			<version>${zxing.version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/net.sf.barcode4j/barcode4j-light -->
+		<dependency>
+			<groupId>net.sf.barcode4j</groupId>
+			<artifactId>barcode4j-light</artifactId>
+			<version>2.0</version>
 		</dependency>
 
 		<!--///////// itex pdf处理 start /////// -->
@@ -179,11 +193,8 @@
 		</dependency>
 
 		<!-- pdfHTML 尼玛的要钱的 -->
-		<!-- <dependency>
-			<groupId>com.itextpdf</groupId>
-			<artifactId>html2pdf</artifactId>
-			<version>1.0.0</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>com.itextpdf</groupId> <artifactId>html2pdf</artifactId> 
+			<version>1.0.0</version> </dependency> -->
 		<!--///////// itex pdf处理 end /////// -->
 
 	</dependencies>
