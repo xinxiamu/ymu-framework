@@ -28,6 +28,8 @@
 		<apache.common.collections4.version>4.0</apache.common.collections4.version>
 		<zxing.version>3.3.0</zxing.version>
 		<jodd.version>3.6.6</jodd.version>
+		<google.guava>22.0</google.guava>
+		<alibaba.fastjson>1.1.41</alibaba.fastjson>
 	</properties>
 
 	<dependencies>
@@ -158,9 +160,15 @@
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
-			<version>1.1.41</version>
+			<version>${alibaba.fastjson}</version>
 		</dependency>
 		<!--///////// json处理 end /////////// -->
+
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${google.guava}</version>
+		</dependency>
 
 		<!-- 二维码，条形码zxing start -->
 		<!-- https://mvnrepository.com/artifact/com.google.zxing/core -->
