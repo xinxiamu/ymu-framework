@@ -1,4 +1,4 @@
-package com.ymu.framework.dao.persist.springjdbc;
+package com.ymu.framework.dao.persist.jdbc;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
