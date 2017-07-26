@@ -5,7 +5,7 @@
 
 	<groupId>com.ymu</groupId>
 	<artifactId>ymu-framework</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<packaging>jar</packaging>
 
 	<name>ymu-framework</name>
@@ -168,7 +168,7 @@
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>${google.guava}</version>
-		</dependency>
+		</dependency>  
 
 		<!-- 二维码，条形码zxing start -->
 		<!-- https://mvnrepository.com/artifact/com.google.zxing/core -->
