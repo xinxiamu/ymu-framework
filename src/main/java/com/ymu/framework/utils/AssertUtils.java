@@ -11,4 +11,10 @@ public final class AssertUtils {
 		}
 	}
 
+	public static final void notNull(Object obj) {
+		if (obj == null) {
+			throw new NullPointerException("obj不能null");
+		}
+	}
+	
 }

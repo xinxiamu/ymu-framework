@@ -8,6 +8,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.KeyHolder;
 
+import com.ymu.framework.dao.entity.strategy.EntityBase;
+
 public interface ISpringJdbcAccessor {
 
 	/**
@@ -18,19 +20,28 @@ public interface ISpringJdbcAccessor {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<Map<String, Object>> getList(JdbcTemplate dataSource, String sql)
-			throws Exception;
+	public List<Map<String, Object>> getList(JdbcTemplate dataSource, String sql) throws Exception;
 
 	/**
 	 * 插入数据
 	 * 
-	 * @param sql
+	 * @param jdbcTemplate
 	 * @param callBack
 	 * @return
 	 * @author mutian
 	 */
-	public KeyHolder add(JdbcTemplate jdbcTemplate,
-			PreparedStatementCreator callBack) throws Exception;
+	public KeyHolder add(JdbcTemplate jdbcTemplate, PreparedStatementCreator callBack) throws Exception;
+
+	/**
+	 * 大批量插入数据。百万级别插入(10秒)。推荐
+	 * 
+	 * @param jdbcTemplate
+	 * @param fieds
+	 *            要插入表字段
+	 * @param values
+	 *            字段对应值
+	 */
+	public void addBatch(JdbcTemplate jdbcTemplate, Object[] fieds, List<Object[]> values) throws Exception;
 
 	/**
 	 * 插入数据并返回id
@@ -52,8 +63,8 @@ public interface ISpringJdbcAccessor {
 	 * @return
 	 * @throws Exception
 	 */
-	public Map<String, Object> getObjectGt(JdbcTemplate jdbcTemplate,
-			String tableName, Map<String, Object> gts) throws Exception;
+	public Map<String, Object> getObjectGt(JdbcTemplate jdbcTemplate, String tableName, Map<String, Object> gts)
+			throws Exception;
 
 	/**
 	 * 批量插入数据
@@ -64,7 +75,7 @@ public interface ISpringJdbcAccessor {
 	 * @return
 	 * @throws Exception
 	 */
-	public <T> int[] batchUpdate(JdbcTemplate jdbcTemplate,List<T> beans, String sql,
+	public <T> int[] batchUpdate(JdbcTemplate jdbcTemplate, List<T> beans, String sql,
 			BatchPreparedStatementSetter callback) throws Exception;
 
 	/**
@@ -76,7 +87,6 @@ public interface ISpringJdbcAccessor {
 	 * @return 成功返回该表最大id，否则返回0
 	 * @throws Exception
 	 */
-	public Long getMaxId(JdbcTemplate jdbcTemplate, String tableName)
-			throws Exception;
+	public Long getMaxId(JdbcTemplate jdbcTemplate, String tableName) throws Exception;
 
 }
