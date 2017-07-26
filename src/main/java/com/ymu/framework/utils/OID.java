@@ -107,7 +107,9 @@ public final class OID implements Comparable<OID>, Serializable {
 	}
 
 	public OID(final ByteBuffer buffer) {
-		Assert.notNull(buffer);
+		if (buffer == null) {
+			throw new NullPointerException("buffer不能为null");
+		}
 		Assert.isTrue(buffer.remaining() >= 12, "buffer.remaining() >= 12 is not true");
 		timestamp = Longs.fromBytes((byte) 0, (byte) 0, (byte) 0, buffer.get(), buffer.get(), buffer.get(),
 				buffer.get(), buffer.get());
