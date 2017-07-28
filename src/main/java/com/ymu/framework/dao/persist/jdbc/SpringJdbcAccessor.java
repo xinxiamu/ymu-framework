@@ -6,14 +6,16 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
+import org.aspectj.weaver.patterns.ThisOrTargetAnnotationPointcut;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
+import com.ymu.framework.utils.PrintUtils;
 import com.ymu.framework.utils.SqlUtils;
+import com.ymu.framework.utils.logger.LoggerUtil;
 
 public final class SpringJdbcAccessor {
 
@@ -149,6 +151,8 @@ public final class SpringJdbcAccessor {
 	 */
 	public static void addBatch(JdbcTemplate jdbcTemplate, String tableName, String[] fieds, List<Object[]> values)
 			throws Exception {
+		long startTime = System.currentTimeMillis();
+
 		if (jdbcTemplate == null || fieds == null || values == null) {
 			throw new NullPointerException("不能传null");
 		}
@@ -161,7 +165,7 @@ public final class SpringJdbcAccessor {
 
 		int total = values.size();
 		int step = 10000; // 提交步长,一万条插一次
-		int per = total % step + 1;
+		int per = total % step == 0 ? total / step : total / step + 1; //不整除则 +1
 		for (int i = 0; i < per; i++) {
 			// 构建完整sql
 			String sql = null;
@@ -169,9 +173,9 @@ public final class SpringJdbcAccessor {
 				sql = SqlUtils.generateInsertSql(tableName, fieds, values);
 			} else {
 				if (i == per - 1) {
-					sql = SqlUtils.generateInsertSql(tableName, fieds,values.subList(i * step, total - 1));
+					sql = SqlUtils.generateInsertSql(tableName, fieds, values.subList(i * step, total));
 				} else {
-					sql = SqlUtils.generateInsertSql(tableName, fieds,values.subList(i * step, i * step + step - 1));
+					sql = SqlUtils.generateInsertSql(tableName, fieds, values.subList(i * step, i * step + step));
 				}
 			}
 
@@ -185,5 +189,8 @@ public final class SpringJdbcAccessor {
 		// 头等连接
 		pst.close();
 		conn.close();
+
+		long endTime = System.currentTimeMillis();
+		PrintUtils.println("===批量插入用时（s）：" + (endTime - startTime) / 1000);
 	}
 }
