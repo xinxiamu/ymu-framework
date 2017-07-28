@@ -3,7 +3,6 @@ package com.ymu.framework.dao.persist.jdbc;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -14,25 +13,47 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
-import com.ymu.framework.utils.time.DateUtil;
+import com.ymu.framework.utils.SqlUtils;
 
-public class SpringJdbcAccessor implements ISpringJdbcAccessor {
+public final class SpringJdbcAccessor {
 
-	@Override
-	public KeyHolder add(JdbcTemplate jdbcTemplate, PreparedStatementCreator callBack) throws Exception {
+	/**
+	 * 插入数据
+	 * 
+	 * @param jdbcTemplate
+	 * @param callBack
+	 * @return
+	 * @author mutian
+	 */
+	public static KeyHolder add(JdbcTemplate jdbcTemplate, PreparedStatementCreator callBack) throws Exception {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		jdbcTemplate.update(callBack, keyHolder);
 		return keyHolder;
 	}
 
-	@Override
-	public List<Map<String, Object>> getList(JdbcTemplate jdbcTemplate, String sql) throws Exception {
+	/**
+	 * 查询，返回结果集列表
+	 * 
+	 * @param dataSource
+	 * @param sql
+	 * @return
+	 * @throws Exception
+	 */
+	public static List<Map<String, Object>> getList(JdbcTemplate jdbcTemplate, String sql) throws Exception {
 		List<Map<String, Object>> resultSet = jdbcTemplate.queryForList(sql);
 		return resultSet;
 	}
 
-	@Override
-	public Long add(JdbcTemplate jdbcTemplate, String sql) throws Exception {
+	/**
+	 * 插入数据并返回id
+	 * 
+	 * @param sql
+	 *            完整的插入sql语句
+	 * @return 该条实体id
+	 * @throws Exception
+	 * @author mutian
+	 */
+	public static Long add(JdbcTemplate jdbcTemplate, String sql) throws Exception {
 		final String sql_insert = sql;
 
 		KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -53,8 +74,16 @@ public class SpringJdbcAccessor implements ISpringJdbcAccessor {
 		return 0L;
 	}
 
-	@Override
-	public Map<String, Object> getObjectGt(JdbcTemplate jdbcTemplate, String tableName, Map<String, Object> gts)
+	/**
+	 * '等'精确查询获取表的某条记录
+	 * 
+	 * @param tableName
+	 * @param gts
+	 *            查询条件集
+	 * @return
+	 * @throws Exception
+	 */
+	public static Map<String, Object> getObjectGt(JdbcTemplate jdbcTemplate, String tableName, Map<String, Object> gts)
 			throws Exception {
 		StringBuffer sb = new StringBuffer("select * from " + tableName + " where 1=1 ");
 		if (gts == null || gts.isEmpty()) {
@@ -76,23 +105,50 @@ public class SpringJdbcAccessor implements ISpringJdbcAccessor {
 		return resultSet;
 	}
 
-	@Override
-	public <T> int[] batchUpdate(JdbcTemplate jdbcTemplate, List<T> beans, String sql,
+	/**
+	 * 批量插入数据
+	 * 
+	 * @param beans
+	 * @param sql
+	 * @param callback
+	 * @return
+	 * @throws Exception
+	 */
+	public static <T> int[] batchUpdate(JdbcTemplate jdbcTemplate, List<T> beans, String sql,
 			BatchPreparedStatementSetter callback) throws Exception {
 		int[] updateCounts = jdbcTemplate.batchUpdate(sql, callback);
 		return updateCounts;
 	}
 
-	@Override
-	public Long getMaxId(JdbcTemplate jdbcTemplate, String tableName) throws Exception {
+	/**
+	 * 批量插入数据
+	 * 
+	 * @param beans
+	 * @param sql
+	 * @param callback
+	 * @return
+	 * @throws Exception
+	 */
+	public static Long getMaxId(JdbcTemplate jdbcTemplate, String tableName) throws Exception {
 		String sql = "SELECT MAX(id) AS maxId FROM " + tableName + "";
 		Long maxId = 0L;
 		maxId = jdbcTemplate.queryForObject(sql, Long.class);
 		return maxId;
 	}
 
-	@Override
-	public void addBatch(JdbcTemplate jdbcTemplate, Object[] fieds, List<Object[]> values) throws Exception {
+	/**
+	 * 大批量插入数据。百万级别插入(10秒)。推荐
+	 * 
+	 * @param jdbcTemplate
+	 * @param tableName
+	 *            表明
+	 * @param fieds
+	 *            要插入表字段
+	 * @param values
+	 *            字段对应值
+	 */
+	public static void addBatch(JdbcTemplate jdbcTemplate, String tableName, String[] fieds, List<Object[]> values)
+			throws Exception {
 		if (jdbcTemplate == null || fieds == null || values == null) {
 			throw new NullPointerException("不能传null");
 		}
@@ -102,13 +158,23 @@ public class SpringJdbcAccessor implements ISpringJdbcAccessor {
 		// Statement st = conn.createStatement();
 		// 比起st，pst会更好些
 		PreparedStatement pst = conn.prepareStatement("");
-		for (int i = 1; i <= 100; i++) {
-			// 提交步长,一万条插一次
-			for (int j = 1; j <= 10000; j++) {
 
-			}
+		int total = values.size();
+		int step = 10000; // 提交步长,一万条插一次
+		int per = total % step + 1;
+		for (int i = 0; i < per; i++) {
 			// 构建完整sql
-			String sql = "";
+			String sql = null;
+			if (total <= step) {
+				sql = SqlUtils.generateInsertSql(tableName, fieds, values);
+			} else {
+				if (i == per - 1) {
+					sql = SqlUtils.generateInsertSql(tableName, fieds,values.subList(i * step, total - 1));
+				} else {
+					sql = SqlUtils.generateInsertSql(tableName, fieds,values.subList(i * step, i * step + step - 1));
+				}
+			}
+
 			// 添加执行sql
 			pst.addBatch(sql);
 			// 执行操作

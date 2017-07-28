@@ -11,7 +11,7 @@ public final class SqlUtils {
 	private SqlUtils() {
 	}
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		Object[] rowValues = new Object[] { "张", 3, 4F, 5D, new Date(), true, false };
 
 		System.out.println(generateInsertValue(rowValues));
@@ -24,7 +24,7 @@ public final class SqlUtils {
 
 		String[] fields = new String[] { "username", "age", "cars", "house", "bornDate", "man", "woman" };
 		System.out.println(generateInsertSql("user", fields, list));
-	}
+	}*/
 
 	public static final String generateInsertValue(final Object[] rowValues) {
 		AssertUtils.notNull(rowValues);
