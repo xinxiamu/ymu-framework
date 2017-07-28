@@ -52,7 +52,7 @@ public class GsonUtilsTest {
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@Test
+//	@Test
 	public void formJson() {
 		PrintUtils
 				.println("******************************** json字符串转对象 ******************");
