@@ -1,4 +1,4 @@
-package com.ymu.framework.dao.sql;
+package com.ymu.framework.dao.sql.splice;
 
 /**
  * copy自mybatis源码。用在spring jdbc sql构造

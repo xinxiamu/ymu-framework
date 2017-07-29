@@ -1,4 +1,4 @@
-package com.ymu.framework.dao.sql;
+package com.ymu.framework.dao.sql.generate;
 
 import java.util.Date;
 import java.util.List;
@@ -7,9 +7,9 @@ import com.ymu.framework.utils.AssertUtil;
 import com.ymu.framework.utils.StringUtils;
 import com.ymu.framework.utils.time.DateUtil;
 
-public final class SqlUtil {
+public final class Insert {
 
-	private SqlUtil() {
+	private Insert() {
 	}
 
 	/*public static void main(String[] args) {

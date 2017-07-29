@@ -1,4 +1,4 @@
-package com.ymu.framework.dao.sql;
+package com.ymu.framework.dao.sql.splice;
 
 /**
  * Copyright 2009-2015 the original author or authors.
