@@ -488,7 +488,7 @@ public final class DateUtil2 {
  
         Calendar c = Calendar.getInstance();
         c.setTime(date);
-        c.add(c.MONTH, month);
+        c.add(Calendar.MONTH, month);
  
         return c.getTime();
     }
