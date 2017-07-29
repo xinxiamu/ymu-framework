@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import com.ymu.framework.utils.StringUtils;
+import com.ymu.framework.utils.StringUtil;
 
  
 /**
@@ -133,7 +133,7 @@ public final class DateUtil2 {
      */
     public static String getCurrentDate(String format) {
  
-        if (StringUtils.isBlank(format)) {
+        if (StringUtil.isBlank(format)) {
             format = FORMAT1;
         }
  
@@ -220,7 +220,7 @@ public final class DateUtil2 {
         DateFormat formatter = null;
         try {
             if (date != null) {
-                if (StringUtils.isBlank(format)) {
+                if (StringUtil.isBlank(format)) {
                     formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 }
                 else {
@@ -276,9 +276,9 @@ public final class DateUtil2 {
  
         DateFormat formatter = null;
         Date date = null;
-        if (StringUtils.isNotBlank(str)) {
+        if (StringUtil.isNotBlank(str)) {
  
-            if (StringUtils.isBlank(format)) {
+            if (StringUtil.isBlank(format)) {
                 formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             }
             else {
@@ -589,7 +589,7 @@ public final class DateUtil2 {
     public static java.sql.Date parseStringToSqlDate(String dateStr, String format) {
  
         Date date = null;
-        if (StringUtils.isBlank(format)) {
+        if (StringUtil.isBlank(format)) {
             date = parseStringToDate(dateStr, "yyyy-MM-dd HH:mm:ss");
         }
         else {
@@ -611,12 +611,12 @@ public final class DateUtil2 {
  
     public static Timestamp parseStringToTimestamp(String dateStr, String format) {
  
-        if (StringUtils.isBlank(dateStr)) {
+        if (StringUtil.isBlank(dateStr)) {
             return null;
         }
  
         Date date = null;
-        if (StringUtils.isBlank(format)) {
+        if (StringUtil.isBlank(format)) {
             date = parseStringToDate(dateStr, "yyyy-MM-dd HH:mm:ss");
         }
         else {

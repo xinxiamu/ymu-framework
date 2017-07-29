@@ -130,7 +130,7 @@ public class BarcodeUtil {
 	 * @param ous
 	 */
 	public static void generate(String msg, OutputStream ous) {
-		if (StringUtils.isEmpty(msg) || ous == null) {
+		if (StringUtil.isEmpty(msg) || ous == null) {
 			return;
 		}
 

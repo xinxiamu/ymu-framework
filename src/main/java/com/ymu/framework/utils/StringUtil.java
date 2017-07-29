@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
  * @author
  *
  */
-public final class StringUtils extends org.apache.commons.lang3.StringUtils {
+public final class StringUtil extends org.apache.commons.lang3.StringUtils {
 
 	public static void main(String[] args) {
 		System.out.println(javaFieldName2SqlFieldName("UserName"));

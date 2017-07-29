@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.ymu.framework.utils.StringUtils;
+import com.ymu.framework.utils.StringUtil;
 
 /**
  * 
@@ -30,7 +30,7 @@ public class FastJsonUtils {
 	 * @return 可以拿返回true，否则返回false
 	 */
 	private static boolean isJsonCanGetValue(JSONObject json, String key) {
-		return (json == null || StringUtils.isEmpty(key) || !json
+		return (json == null || StringUtil.isEmpty(key) || !json
 				.containsKey(key)) ? false : true;
 	}
 
@@ -45,7 +45,7 @@ public class FastJsonUtils {
 	@SuppressWarnings("unchecked")
 	public static <T> T jSONStr2Json(String jsonStr) {
 		T t = null;
-		if (StringUtils.isEmpty(jsonStr)) {
+		if (StringUtil.isEmpty(jsonStr)) {
 			return null;
 		}
 		String flgStr = jsonStr.trim().substring(0,1);
@@ -83,7 +83,7 @@ public class FastJsonUtils {
 			return defaultStr;
 		}
 		String value = jsonObject.getString(key);
-		return (StringUtils.isEmpty(value) || value.equals("null") || value
+		return (StringUtil.isEmpty(value) || value.equals("null") || value
 				.equals("NULL")) ? defaultStr : value;
 	}
 
@@ -97,7 +97,7 @@ public class FastJsonUtils {
 	 */
 	public static String getJValueStr(String jsonObjStr, String key,
 			String defaultStr) {
-		if (StringUtils.isEmpty(jsonObjStr)) {
+		if (StringUtil.isEmpty(jsonObjStr)) {
 			return defaultStr;
 		}
 		JSONObject jsonObject = jSONStr2Json(jsonObjStr);
@@ -105,7 +105,7 @@ public class FastJsonUtils {
 			return defaultStr;
 		}
 		String value = jsonObject.getString(key);
-		return (StringUtils.isEmpty(value) || value.equals("null") || value
+		return (StringUtil.isEmpty(value) || value.equals("null") || value
 				.equals("NULL")) ? defaultStr : value.trim();
 	}
 
@@ -143,7 +143,7 @@ public class FastJsonUtils {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T getJValueObj(String jsonObjStr, String key, T defaults) {
-		if (StringUtils.isEmpty(jsonObjStr)) {
+		if (StringUtil.isEmpty(jsonObjStr)) {
 			return defaults;
 		}
 		JSONObject jsonObject = jSONStr2Json(jsonObjStr);
@@ -171,7 +171,7 @@ public class FastJsonUtils {
 	@SuppressWarnings("unchecked")
 	public static <T> T toJavaObje(String jsonOrJsonArrayStr, Class<T> javaObj) {
 		T t = null;
-		if (StringUtils.isEmpty(jsonOrJsonArrayStr)) {
+		if (StringUtil.isEmpty(jsonOrJsonArrayStr)) {
 			return t;
 		}
 		Object jsonOrJsonArray = jSONStr2Json(jsonOrJsonArrayStr);
