@@ -2,6 +2,7 @@ package com.ymu.framework.dao.persist.jdbc;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,8 @@ import com.ymu.framework.utils.PrintUtil;
 import com.ymu.framework.utils.sql.generate.Insert;
 
 public final class SpringJdbcAccessor {
+
+	// ----------------------- insert --------------------//
 
 	/**
 	 * 插入数据
@@ -76,6 +79,79 @@ public final class SpringJdbcAccessor {
 	}
 
 	/**
+	 * 批量插入数据
+	 * 
+	 * @param beans
+	 * @param sql
+	 * @param callback
+	 * @return
+	 * @throws Exception
+	 */
+	public static <T> int[] batchUpdate(JdbcTemplate jdbcTemplate, List<T> beans, String sql,
+			BatchPreparedStatementSetter callback) throws Exception {
+		int[] updateCounts = jdbcTemplate.batchUpdate(sql, callback);
+		return updateCounts;
+	}
+
+	/**
+	 * 大批量插入数据。百万级别插入(10秒)。推荐
+	 * 
+	 * @param jdbcTemplate
+	 * @param tableName
+	 *            表明
+	 * @param fieds
+	 *            要插入表字段
+	 * @param values
+	 *            字段对应值
+	 */
+	public static void addBatch(JdbcTemplate jdbcTemplate, String tableName, String[] fieds, List<Object[]> values)
+			throws Exception {
+		long startTime = System.currentTimeMillis();
+
+		if (jdbcTemplate == null || fieds == null || values == null) {
+			throw new NullPointerException("不能传null");
+		}
+
+		Connection conn = jdbcTemplate.getDataSource().getConnection();
+		conn.setAutoCommit(false);
+		// Statement st = conn.createStatement();
+		// 比起st，pst会更好些
+		PreparedStatement pst = conn.prepareStatement("");
+
+		int total = values.size();
+		int step = 10000; // 提交步长,一万条插一次
+		int per = total % step == 0 ? total / step : total / step + 1; // 不整除则
+																		// +1
+		for (int i = 0; i < per; i++) {
+			// 构建完整sql
+			String sql = null;
+			if (total <= step) {
+				sql = Insert.generateInsertSql(tableName, fieds, values);
+			} else {
+				if (i == per - 1) {
+					sql = Insert.generateInsertSql(tableName, fieds, values.subList(i * step, total));
+				} else {
+					sql = Insert.generateInsertSql(tableName, fieds, values.subList(i * step, i * step + step));
+				}
+			}
+
+			// 添加执行sql
+			pst.addBatch(sql);
+			// 执行操作
+			pst.executeBatch();
+			// 提交事务
+			conn.commit();
+		}
+		// 头等连接
+		pst.close();
+		conn.close();
+
+		long endTime = System.currentTimeMillis();
+		PrintUtil.println("===批量插入用时（s）：" + (endTime - startTime) / 1000);
+	}
+
+	// -------------------- select --------------------------//
+	/**
 	 * '等'精确查询获取表的某条记录
 	 * 
 	 * @param tableName
@@ -107,22 +183,7 @@ public final class SpringJdbcAccessor {
 	}
 
 	/**
-	 * 批量插入数据
-	 * 
-	 * @param beans
-	 * @param sql
-	 * @param callback
-	 * @return
-	 * @throws Exception
-	 */
-	public static <T> int[] batchUpdate(JdbcTemplate jdbcTemplate, List<T> beans, String sql,
-			BatchPreparedStatementSetter callback) throws Exception {
-		int[] updateCounts = jdbcTemplate.batchUpdate(sql, callback);
-		return updateCounts;
-	}
-
-	/**
-	 * 批量插入数据
+	 * 获取最大id
 	 * 
 	 * @param beans
 	 * @param sql
@@ -138,58 +199,52 @@ public final class SpringJdbcAccessor {
 	}
 
 	/**
-	 * 大批量插入数据。百万级别插入(10秒)。推荐
+	 * 
 	 * 
 	 * @param jdbcTemplate
-	 * @param tableName
-	 *            表明
-	 * @param fieds
-	 *            要插入表字段
-	 * @param values
-	 *            字段对应值
+	 * @param sqlCmd
+	 * @throws SQLException
 	 */
-	public static void addBatch(JdbcTemplate jdbcTemplate, String tableName, String[] fieds, List<Object[]> values)
-			throws Exception {
-		long startTime = System.currentTimeMillis();
+	public void selectData(JdbcTemplate jdbcTemplate, String sqlCmd) throws SQLException {
 
-		if (jdbcTemplate == null || fieds == null || values == null) {
-			throw new NullPointerException("不能传null");
-		}
+		// validate(sqlCmd);
 
-		Connection conn = jdbcTemplate.getDataSource().getConnection();
-		conn.setAutoCommit(false);
-		// Statement st = conn.createStatement();
-		// 比起st，pst会更好些
-		PreparedStatement pst = conn.prepareStatement("");
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			conn = jdbcTemplate.getDataSource().getConnection();
 
-		int total = values.size();
-		int step = 10000; // 提交步长,一万条插一次
-		int per = total % step == 0 ? total / step : total / step + 1; //不整除则 +1
-		for (int i = 0; i < per; i++) {
-			// 构建完整sql
-			String sql = null;
-			if (total <= step) {
-				sql = Insert.generateInsertSql(tableName, fieds, values);
-			} else {
-				if (i == per - 1) {
-					sql = Insert.generateInsertSql(tableName, fieds, values.subList(i * step, total));
-				} else {
-					sql = Insert.generateInsertSql(tableName, fieds, values.subList(i * step, i * step + step));
+			//流式查询避免数据量过大导致OOM
+			//stmt = conn.prepareStatement(sqlCmd); //以前查询方式，大数据量可能导致内存溢出。因为是一次性读入内存
+			stmt = conn.prepareStatement(sqlCmd, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+			stmt.setFetchSize(Integer.MIN_VALUE);
+
+			rs = stmt.executeQuery();
+			try {
+				while (rs.next()) {
+					try {
+						System.out.println(
+								"one:" + rs.getString(1) + "two:" + rs.getString(2) + "thrid:" + rs.getString(3));
+					} catch (SQLException e) { // TODO Auto-generated catch
+												// block
+						e.printStackTrace();
+					}
 				}
+			} catch (SQLException e) { // TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 
-			// 添加执行sql
-			pst.addBatch(sql);
-			// 执行操作
-			pst.executeBatch();
-			// 提交事务
-			conn.commit();
+		} finally {
+			if (stmt != null) {
+				stmt.close();
+			}
+			if (rs != null) {
+				rs.close();
+			}
+			if (conn != null) {
+				conn.close();
+			}
 		}
-		// 头等连接
-		pst.close();
-		conn.close();
-
-		long endTime = System.currentTimeMillis();
-		PrintUtil.println("===批量插入用时（s）：" + (endTime - startTime) / 1000);
 	}
 }
