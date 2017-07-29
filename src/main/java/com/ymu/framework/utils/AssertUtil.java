@@ -1,8 +1,8 @@
 package com.ymu.framework.utils;
 
-public final class AssertUtils {
+public final class AssertUtil {
 
-	private AssertUtils() {
+	private AssertUtil() {
 	}
 
 	public final static void nullOrEmptyException(String str) {

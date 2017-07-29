@@ -29,9 +29,9 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
  * @param <EncodeHintType>
  *
  */
-public final class QRCodeUtils {
+public final class QRCodeUtil {
 
-	private QRCodeUtils() {
+	private QRCodeUtil() {
 	}
 
 	/**

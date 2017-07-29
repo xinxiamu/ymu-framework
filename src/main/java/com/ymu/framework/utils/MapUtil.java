@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class MapUtils {
+public class MapUtil {
 
 	/**
 	 * 拿对应key值。没key,或者value为字符串null，NULL,"",则返回默认值

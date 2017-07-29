@@ -14,7 +14,7 @@ package com.ymu.framework.utils;
  * @Copyright
  * @mail 932852117@qq.com
  */
-public class MathUtils {
+public class MathUtil {
 
 	/**
 	 * 根据两点间经纬度坐标（double值），计算两点间距离，单位为米

@@ -1,8 +1,8 @@
 package com.ymu.framework.utils;
 
-public class PrintUtils {
+public class PrintUtil {
 
-	private PrintUtils(){};
+	private PrintUtil(){};
 	
 	public static void println(Object msg) {
 		System.out.println(msg);

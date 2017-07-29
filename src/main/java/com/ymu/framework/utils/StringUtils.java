@@ -12,12 +12,13 @@ import java.util.regex.Pattern;
  */
 public final class StringUtils extends org.apache.commons.lang3.StringUtils {
 
-//	public static void main(String[] args) {
-//		System.out.println(javaFieldName2SqlFieldName("userName"));
-//	}
+	public static void main(String[] args) {
+		System.out.println(javaFieldName2SqlFieldName("UserName"));
+	}
 
 	/**
-	 * 把java驼峰命名字段改成下划线分割的sql字段。例如：userName -> user_name,GoodsDetails -> goods_details
+	 * 把java驼峰命名字段改成下划线分割的sql字段。例如：userName -> user_name,GoodsDetails ->
+	 * goods_details
 	 * 
 	 * @param javaFieldName
 	 * @return 返回下划线分隔的字符串
@@ -26,7 +27,7 @@ public final class StringUtils extends org.apache.commons.lang3.StringUtils {
 		if (isEmpty(javaFieldName)) {
 			throw new NullPointerException("javaFieldName不能为null");
 		}
-		StringBuilder sb = new StringBuilder();
+		StringBuffer sb = new StringBuffer(); // 线程安全，比StringBuilder慢
 		for (int i = 0; i < javaFieldName.length(); i++) {
 			char c = javaFieldName.charAt(i);
 			if (!Character.isLowerCase(c)) {// 大写字母

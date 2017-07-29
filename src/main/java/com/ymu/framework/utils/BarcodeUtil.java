@@ -31,9 +31,9 @@ import com.google.zxing.common.HybridBinarizer;
  * @author Administrator
  *
  */
-public class BarcodeUtils {
+public class BarcodeUtil {
 
-	private BarcodeUtils() {
+	private BarcodeUtil() {
 	}
 
 	/**

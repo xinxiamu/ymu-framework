@@ -1,5 +1,5 @@
 package com.ymu.framework.utils;
 
-public class PathUtils {
+public class PathUtil {
 
 }

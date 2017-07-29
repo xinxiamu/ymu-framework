@@ -1,14 +1,13 @@
 package com.ymu.framework.utils;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import com.ymu.framework.utils.time.DateUtil;
 
-public final class SqlUtils {
+public final class SqlUtil {
 
-	private SqlUtils() {
+	private SqlUtil() {
 	}
 
 	/*public static void main(String[] args) {
@@ -26,8 +25,9 @@ public final class SqlUtils {
 		System.out.println(generateInsertSql("user", fields, list));
 	}*/
 
-	public static final String generateInsertValue(final Object[] rowValues) {
-		AssertUtils.notNull(rowValues);
+	
+	private static final String generateInsertValue(final Object[] rowValues) {
+		AssertUtil.notNull(rowValues);
 		StringBuilder sb = new StringBuilder("(");
 		for (int i = 0; i < rowValues.length; i++) {
 			Object value = rowValues[i];
@@ -55,9 +55,9 @@ public final class SqlUtils {
 		return sb.toString();
 	}
 
-	public static final String generateInsertValueBatch(final List<Object[]> rowBatch) {
-		AssertUtils.notNull(rowBatch);
-		StringBuilder sb = new StringBuilder();// 线程不安全，但是比较快
+	private static final String generateInsertValueBatch(final List<Object[]> rowBatch) {
+		AssertUtil.notNull(rowBatch);
+		StringBuilder sb = new StringBuilder(); 
 		for (int i = 0; i < rowBatch.size(); i++) {
 			Object[] row = rowBatch.get(i);
 			String rowValues = generateInsertValue(row);
@@ -81,9 +81,9 @@ public final class SqlUtils {
 	 * @return 返回组装成功的插入sql语句
 	 */
 	public static String generateInsertSql(String tableName, final String[] fields, final List<Object[]> rowBatch) {
-		AssertUtils.nullOrEmptyException(tableName);
-		AssertUtils.notNull(fields);
-		AssertUtils.notNull(rowBatch);
+		AssertUtil.nullOrEmptyException(tableName);
+		AssertUtil.notNull(fields);
+		AssertUtil.notNull(rowBatch);
 
 		StringBuilder sb = new StringBuilder("INSERT INTO ").append(StringUtils.javaFieldName2SqlFieldName(tableName))
 				.append("(");
