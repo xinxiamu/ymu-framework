@@ -6,16 +6,15 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import org.aspectj.weaver.patterns.ThisOrTargetAnnotationPointcut;
+
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
-import com.ymu.framework.utils.PrintUtils;
-import com.ymu.framework.utils.SqlUtils;
-import com.ymu.framework.utils.logger.LoggerUtil;
+import com.ymu.framework.utils.PrintUtil;
+import com.ymu.framework.utils.sql.generate.Insert;
 
 public final class SpringJdbcAccessor {
 
@@ -170,12 +169,12 @@ public final class SpringJdbcAccessor {
 			// 构建完整sql
 			String sql = null;
 			if (total <= step) {
-				sql = SqlUtils.generateInsertSql(tableName, fieds, values);
+				sql = Insert.generateInsertSql(tableName, fieds, values);
 			} else {
 				if (i == per - 1) {
-					sql = SqlUtils.generateInsertSql(tableName, fieds, values.subList(i * step, total));
+					sql = Insert.generateInsertSql(tableName, fieds, values.subList(i * step, total));
 				} else {
-					sql = SqlUtils.generateInsertSql(tableName, fieds, values.subList(i * step, i * step + step));
+					sql = Insert.generateInsertSql(tableName, fieds, values.subList(i * step, i * step + step));
 				}
 			}
 
@@ -191,6 +190,6 @@ public final class SpringJdbcAccessor {
 		conn.close();
 
 		long endTime = System.currentTimeMillis();
-		PrintUtils.println("===批量插入用时（s）：" + (endTime - startTime) / 1000);
+		PrintUtil.println("===批量插入用时（s）：" + (endTime - startTime) / 1000);
 	}
 }
