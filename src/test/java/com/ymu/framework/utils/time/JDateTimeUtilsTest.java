@@ -4,7 +4,7 @@ import java.util.Date;
 
 import org.junit.Test;
 
-import com.ymu.framework.utils.PrintUtils;
+import com.ymu.framework.utils.PrintUtil;
 
 
 public class JDateTimeUtilsTest {
@@ -35,27 +35,27 @@ public class JDateTimeUtilsTest {
 	public void testIsDate1AfterDate2() {
 		boolean b = JDateTimeUtils.isDate1AfterDate2("2015-06-02 12:32:23", "2015-06-02 12:32:22");
 		boolean c = JDateTimeUtils.isDate1AfterDate2IgnoredTime("2015-06-03 12:32:23", "2015-06-02 12:32:22");
-		PrintUtils.println("" + b + "===" + c);
+		PrintUtil.println("" + b + "===" + c);
 	}
 	
 	@Test
 	public void absDate1ToDate2() {
 		int flg = JDateTimeUtils.absDate1ToDate2("2015-06-06 12:32:23", "2015-06-03 14:32:22");
-		PrintUtils.println(flg);
+		PrintUtil.println(flg);
 	}
 	
 	@Test
 	public void dateForMillsecond() {
 		Long l = JDateTimeUtils.dateTimeInMillis(new Date());
-		PrintUtils.println(l);
+		PrintUtil.println(l);
 		
-		PrintUtils.println(JDateTimeUtils.dateToStr(l, JDateTimeStyle.YYYY_MM_DD_HH_MM_CN.getValue()));
+		PrintUtil.println(JDateTimeUtils.dateToStr(l, JDateTimeStyle.YYYY_MM_DD_HH_MM_CN.getValue()));
 	}
 	
 	@Test
 	public void showDateTimeFriendly() {
 		String str = JDateTimeUtils.showDateTimeFriendly("2015-06-9 13:52:23");
-		PrintUtils.println("=========" + str);
+		PrintUtil.println("=========" + str);
 	}
 	
 	
