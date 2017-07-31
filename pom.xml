@@ -30,6 +30,9 @@
 		<jodd.version>3.6.6</jodd.version>
 		<google.guava>22.0</google.guava>
 		<alibaba.fastjson>1.1.41</alibaba.fastjson>
+		<imgscalr.version>4.2</imgscalr.version>
+		<metadata-extractor.version>2.9.1</metadata-extractor.version>
+		<cglib.version>3.2.4</cglib.version>
 	</properties>
 
 	<dependencies>
@@ -215,6 +218,32 @@
 		<!-- <dependency> <groupId>com.itextpdf</groupId> <artifactId>html2pdf</artifactId> 
 			<version>1.0.0</version> </dependency> -->
 		<!--///////// itex pdf处理 end /////// -->
+
+		<!--////////////// 图片处理 start //////////////// -->
+		<dependency>
+			<groupId>org.imgscalr</groupId>
+			<artifactId>imgscalr-lib</artifactId>
+			<version>${imgscalr.version}</version>
+		</dependency>
+		<!-- 图片元数据解析器 -->
+		<dependency>
+			<groupId>com.drewnoakes</groupId>
+			<artifactId>metadata-extractor</artifactId>
+			<version>${metadata-extractor.version}</version>
+		</dependency>
+		<!--////////////// 图片处理 end //////////////// -->
+
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>${cglib.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.ow2.asm</groupId>
+					<artifactId>asm</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 
 	</dependencies>
 
