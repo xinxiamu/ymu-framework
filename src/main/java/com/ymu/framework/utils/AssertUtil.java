@@ -1,6 +1,6 @@
 package com.ymu.framework.utils;
 
-public final class AssertUtil {
+public final class AssertUtil extends org.springframework.util.Assert {
 
 	private AssertUtil() {
 	}
