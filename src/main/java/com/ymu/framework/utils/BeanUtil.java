@@ -25,11 +25,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
-public final class BeanUtil {
+public final class BeanUtil extends org.apache.commons.beanutils.BeanUtils {
 
 	private BeanUtil() {
 	}
-	
+
 	static Logger logger = LoggerFactory.getLogger(BeanUtil.class);
 
 	private static final Map<Class<?>, Map<String, PropertyDescriptor>> PROPERTY_DESCRIPTORS_CASEINSENSITIVE_MAP = new ConcurrentHashMap<Class<?>, Map<String, PropertyDescriptor>>();
@@ -343,18 +343,22 @@ public final class BeanUtil {
 				}
 
 				cglibCopier.copy(from, to, new FastCopierConverter() {
-					public Object convert(Object fromValue, Object target, Method sourceReader,
-										  Method targetWriter,  Object context) {
+					public Object convert(Object fromValue, Object target, Method sourceReader, Method targetWriter,
+							Object context) {
 						Class sourceClass = sourceReader.getReturnType();
 						Class targetClass = targetWriter.getParameterTypes()[0];
 						if (!getWrapper(targetClass).isAssignableFrom(getWrapper(sourceClass))) {
-							logger.debug("The property {} has been ignored to copy because setter's type {} is not assignable from getter's type {}",context,targetClass,sourceClass);
+							logger.debug(
+									"The property {} has been ignored to copy because setter's type {} is not assignable from getter's type {}",
+									context, targetClass, sourceClass);
 							return target;
 						}
 						Type sourceGeneric = sourceReader.getGenericReturnType();
 						Type targetGeneric = targetWriter.getGenericParameterTypes()[0];
-						if(!assertGenericTypeEqual(sourceGeneric,targetGeneric)){
-							logger.debug("The property {} has been ignored to copy because getter's type {} is not equal with setter's type {}",context,sourceGeneric,targetGeneric);
+						if (!assertGenericTypeEqual(sourceGeneric, targetGeneric)) {
+							logger.debug(
+									"The property {} has been ignored to copy because getter's type {} is not equal with setter's type {}",
+									context, sourceGeneric, targetGeneric);
 							return target;
 						}
 						if (includes != null && !includes.contains(context)) {
@@ -383,10 +387,10 @@ public final class BeanUtil {
 					}
 
 					private boolean assertGenericTypeEqual(Type source, Type target) {
-						if(source instanceof Class && target instanceof Class){
+						if (source instanceof Class && target instanceof Class) {
 							return true;
 						}
-						if(source instanceof WildcardType || target instanceof WildcardType){
+						if (source instanceof WildcardType || target instanceof WildcardType) {
 							return false;
 						}
 						return source.equals(target);
@@ -495,8 +499,7 @@ public final class BeanUtil {
 	 * 为bean设置属性值
 	 * 
 	 * @param bean
-	 *            要设置的对象
-	 *            属性的类型转换器
+	 *            要设置的对象 属性的类型转换器
 	 * @param nameString
 	 *            属性名，使用空格、逗号等隔开多个字段名，忽略大小写
 	 * @param args
@@ -530,10 +533,8 @@ public final class BeanUtil {
 			}
 		}
 	}
-	
-	//------------------------------ end ------------------------//
-	
-		
+
+	// ------------------------------ end ------------------------//
 
 	/**
 	 * 持久化实体bean转换成map。注意：实体不用基础类型。要用基础类型封装类。如long->Long
