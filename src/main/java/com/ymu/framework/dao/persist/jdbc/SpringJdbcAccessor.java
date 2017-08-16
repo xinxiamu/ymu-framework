@@ -149,6 +149,10 @@ public final class SpringJdbcAccessor {
 		long endTime = System.currentTimeMillis();
 		PrintUtil.println("===批量插入用时（s）：" + (endTime - startTime) / 1000);
 	}
+	
+	public static void addBatch(List<Object> beans) {
+		
+	}
 
 	// -------------------- select --------------------------//
 	/**
