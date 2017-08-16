@@ -93,9 +93,9 @@ public class HttpUtil {
         }
         return result;
     }    
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
 		String url = "http://120.77.54.72:8072/index.do?provinceCode=440000&signMethod=5690dddfa28ae085d23518a035707282";
 //		System.out.println(doGet(url));
 		System.out.println(doPost(url));
-	}
+	}*/
 }

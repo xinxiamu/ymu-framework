@@ -26,28 +26,21 @@ import org.objectweb.asm.Type;
  * @author lujijiang
  */
 abstract public class FastCopier {
-	private static final BeanCopierKey KEY_FACTORY = (BeanCopierKey) KeyFactory
-			.create(BeanCopierKey.class);
-	private static final Type CONVERTER = TypeUtils
-			.parseType(FastCopierConverter.class.getCanonicalName());
-	private static final Type BEAN_COPIER = TypeUtils
-			.parseType(FastCopier.class.getCanonicalName());
+	private static final BeanCopierKey KEY_FACTORY = (BeanCopierKey) KeyFactory.create(BeanCopierKey.class);
+	private static final Type CONVERTER = TypeUtils.parseType(FastCopierConverter.class.getCanonicalName());
+	private static final Type BEAN_COPIER = TypeUtils.parseType(FastCopier.class.getCanonicalName());
 	private static final Signature COPY = new Signature("copy", Type.VOID_TYPE,
-			new Type[] { Constants.TYPE_OBJECT, Constants.TYPE_OBJECT,
-					CONVERTER });
-	private static final Signature CONVERT = TypeUtils
-			.parseSignature("Object convert(Object, Object, java.lang.reflect.Method, java.lang.reflect.Method, Object)");
+			new Type[] { Constants.TYPE_OBJECT, Constants.TYPE_OBJECT, CONVERTER });
+	private static final Signature CONVERT = TypeUtils.parseSignature(
+			"Object convert(Object, Object, java.lang.reflect.Method, java.lang.reflect.Method, Object)");
 
 	interface BeanCopierKey {
-		public Object newInstance(String source, String target,
-				boolean useConverter, boolean caseSensitive);
+		public Object newInstance(String source, String target, boolean useConverter, boolean caseSensitive);
 	}
 
-	abstract public void copy(Object from, Object to,
-			FastCopierConverter converter);
+	abstract public void copy(Object from, Object to, FastCopierConverter converter);
 
-	public static FastCopier create(Class source, Class target,
-			boolean useConverter, boolean caseSensitive) {
+	public static FastCopier create(Class source, Class target, boolean useConverter, boolean caseSensitive) {
 		Generator gen = new Generator();
 		gen.setSource(source);
 		gen.setTarget(target);
@@ -57,8 +50,7 @@ abstract public class FastCopier {
 	}
 
 	public static class Generator extends AbstractClassGenerator {
-		private static final Source SOURCE = new Source(
-				FastCopier.class.getName());
+		private static final Source SOURCE = new Source(FastCopier.class.getName());
 		@SuppressWarnings("rawtypes")
 		private Class source;
 		@SuppressWarnings("rawtypes")
@@ -103,8 +95,7 @@ abstract public class FastCopier {
 		}
 
 		public FastCopier create() {
-			Object key = KEY_FACTORY.newInstance(source.getName(),
-					target.getName(), useConverter, caseSensitive);
+			Object key = KEY_FACTORY.newInstance(source.getName(), target.getName(), useConverter, caseSensitive);
 			return (FastCopier) super.create(key);
 		}
 
@@ -112,8 +103,8 @@ abstract public class FastCopier {
 			Type sourceType = Type.getType(source);
 			Type targetType = Type.getType(target);
 			ClassEmitter ce = new ClassEmitter(v);
-			ce.begin_class(Constants.V1_2, Constants.ACC_PUBLIC,
-					getClassName(), BEAN_COPIER, null, Constants.SOURCE_FILE);
+			ce.begin_class(Constants.V1_2, Constants.ACC_PUBLIC, getClassName(), BEAN_COPIER, null,
+					Constants.SOURCE_FILE);
 
 			EmitUtils.null_constructor(ce);
 			CodeEmitter e = ce.begin_method(Constants.ACC_PUBLIC, COPY, null);
@@ -130,15 +121,13 @@ abstract public class FastCopier {
 				if (setter.getPropertyType() == null) {
 					continue;
 				}
-				if (setter.getWriteMethod() == null
-						|| setter.getReadMethod() == null) {
+				if (setter.getWriteMethod() == null || setter.getReadMethod() == null) {
 					continue;
 				}
 				if (!caseSensitive) {
 					name = name.toLowerCase();
 				}
-				targetPropertyDescriptorMap.put(name,
-						targetPropertyDescriptors[i]);
+				targetPropertyDescriptorMap.put(name, targetPropertyDescriptors[i]);
 			}
 			Local targetLocal = e.make_local();
 			Local sourceLocal = e.make_local();
@@ -170,18 +159,11 @@ abstract public class FastCopier {
 				if (!caseSensitive) {
 					name = name.toLowerCase();
 				}
-				PropertyDescriptor targetPropertyDescriptor = targetPropertyDescriptorMap
-						.get(name);
+				PropertyDescriptor targetPropertyDescriptor = targetPropertyDescriptorMap.get(name);
 				if (targetPropertyDescriptor != null) {
-					MethodInfo sourceRead = ReflectUtils
-							.getMethodInfo(sourcePropertyDescriptor
-									.getReadMethod());
-					MethodInfo targetRead = ReflectUtils
-							.getMethodInfo(targetPropertyDescriptor
-									.getReadMethod());
-					MethodInfo targetWrite = ReflectUtils
-							.getMethodInfo(targetPropertyDescriptor
-									.getWriteMethod());
+					MethodInfo sourceRead = ReflectUtils.getMethodInfo(sourcePropertyDescriptor.getReadMethod());
+					MethodInfo targetRead = ReflectUtils.getMethodInfo(targetPropertyDescriptor.getReadMethod());
+					MethodInfo targetWrite = ReflectUtils.getMethodInfo(targetPropertyDescriptor.getWriteMethod());
 					if (useConverter) {
 						// 编写如下代码
 						// write.invoke(target,converter.convert(read.invoke(source),targetRead.invoke(target),read,write,write.name));
@@ -194,14 +176,13 @@ abstract public class FastCopier {
 						e.invoke(targetRead);
 						e.box(targetRead.getSignature().getReturnType());
 						// 插入泛型
-						EmitUtils.load_method(e,sourceRead);
-						EmitUtils.load_method(e,targetWrite);
+						EmitUtils.load_method(e, sourceRead);
+						EmitUtils.load_method(e, targetWrite);
 						e.push(name);
 						e.invoke_interface(CONVERTER, CONVERT);
 						e.unbox_or_zero(targetWrite.getSignature().getArgumentTypes()[0]);
 						e.invoke(targetWrite);
-					} else if (compatible(sourcePropertyDescriptor,
-							targetPropertyDescriptor)) {
+					} else if (compatible(sourcePropertyDescriptor, targetPropertyDescriptor)) {
 						e.dup2();
 						e.invoke(sourceRead);
 						e.invoke(targetWrite);
@@ -221,10 +202,8 @@ abstract public class FastCopier {
 			}
 		}
 
-		private static boolean compatible(PropertyDescriptor getter,
-				PropertyDescriptor setter) {
-			return setter.getPropertyType().isAssignableFrom(
-					getter.getPropertyType());
+		private static boolean compatible(PropertyDescriptor getter, PropertyDescriptor setter) {
+			return setter.getPropertyType().isAssignableFrom(getter.getPropertyType());
 		}
 
 		@SuppressWarnings("rawtypes")

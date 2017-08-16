@@ -42,11 +42,11 @@ public class JoinQuery {
 		return jionTable;
 	}
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		JoinQuery jq = new JoinQuery.Builder().setQueryData("a.*,u.nickname,g.goName").selectMainTableAs("a")
 				.leftJoin("t_user u", "u.id = a.usid ").leftJoin("t_goods g", "g.id = a.goid ").build();
 		System.out.println(jq.getSql("t_a"));
-	}
+	}*/
 
 	public String getSql(String table) {
 		StringBuilder sb = new StringBuilder();

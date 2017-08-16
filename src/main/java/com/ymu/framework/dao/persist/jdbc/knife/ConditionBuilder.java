@@ -18,10 +18,10 @@ public class ConditionBuilder {
 		return values;
 	}
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		ConditionBuilder co = new ConditionBuilder.Builder().in("123", new String[] { "123", "323" }).build();
 		System.out.println(co.getSql());
-	}
+	}*/
 
 	@Override
 	public String toString() {

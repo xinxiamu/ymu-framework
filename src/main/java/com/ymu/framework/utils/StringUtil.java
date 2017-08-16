@@ -12,9 +12,9 @@ import java.util.regex.Pattern;
  */
 public final class StringUtil extends org.apache.commons.lang3.StringUtils {
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		System.out.println(javaFieldName2SqlFieldName("UserName"));
-	}
+	}*/
 
 	/**
 	 * 把java驼峰命名字段改成下划线分割的sql字段。例如：userName -> user_name,GoodsDetails ->
