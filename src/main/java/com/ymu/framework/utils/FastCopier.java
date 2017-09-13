@@ -1,26 +1,15 @@
 package com.ymu.framework.utils;
 
+import net.sf.cglib.core.*;
+import org.objectweb.asm.ClassVisitor;
+import org.objectweb.asm.Type;
+
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Modifier;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.Map;
-
-import net.sf.cglib.core.AbstractClassGenerator;
-import net.sf.cglib.core.ClassEmitter;
-import net.sf.cglib.core.CodeEmitter;
-import net.sf.cglib.core.Constants;
-import net.sf.cglib.core.EmitUtils;
-import net.sf.cglib.core.KeyFactory;
-import net.sf.cglib.core.Local;
-import net.sf.cglib.core.MethodInfo;
-import net.sf.cglib.core.ReflectUtils;
-import net.sf.cglib.core.Signature;
-import net.sf.cglib.core.TypeUtils;
-
-import org.objectweb.asm.ClassVisitor;
-import org.objectweb.asm.Type;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author lujijiang

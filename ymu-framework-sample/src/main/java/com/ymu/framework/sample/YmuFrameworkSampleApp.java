@@ -1,12 +1,12 @@
-package com.ymu.framework;
+package com.ymu.framework.sample;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-//@SpringBootApplication
-public class YmuFrameworkApplication {
+@SpringBootApplication
+public class YmuFrameworkSampleApp {
 
 	public static void main(String[] args) {
-		SpringApplication.run(YmuFrameworkApplication.class, args);
+		SpringApplication.run(YmuFrameworkSampleApp.class, args);
 	}
 }

@@ -188,10 +188,8 @@ public final class SpringJdbcAccessor {
 
 	/**
 	 * 获取最大id
-	 * 
-	 * @param beans
-	 * @param sql
-	 * @param callback
+	 * @param jdbcTemplate
+	 * @param tableName
 	 * @return
 	 * @throws Exception
 	 */

@@ -6,7 +6,10 @@
 	<groupId>com.ymu</groupId>
 	<artifactId>ymu-framework</artifactId>
 	<version>1.0</version>
-	<packaging>jar</packaging>
+    <modules>
+        <module>ymu-framework-sample</module>
+    </modules>
+    <packaging>pom</packaging>
 
 	<name>ymu-framework</name>
 	<description>核心框架</description>
@@ -33,6 +36,7 @@
 		<imgscalr.version>4.2</imgscalr.version>
 		<metadata-extractor.version>2.9.1</metadata-extractor.version>
 		<cglib.version>3.2.4</cglib.version>
+		<asm-all.version>5.1</asm-all.version>
 	</properties>
 
 	<dependencies>
@@ -73,12 +77,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
 		</dependency>
 
 		<dependency>
@@ -251,6 +249,11 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<dependency>
+			<groupId>org.ow2.asm</groupId>
+			<artifactId>asm-all</artifactId>
+			<version>${asm-all.version}</version>
+		</dependency>
 
 	</dependencies>
 
@@ -267,9 +270,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<fork>true</fork>
-				</configuration>
 			</plugin>
 
 			<!-- javadoc生成插件。使用：http://maven.apache.org/components/plugins/maven-javadoc-plugin -->

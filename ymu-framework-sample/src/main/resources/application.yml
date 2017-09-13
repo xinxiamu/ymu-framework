@@ -1,0 +1,18 @@
+server:
+  port: 8080
+spring:
+  profiles:
+    active: dev
+  datasource:
+    continue-on-error: true
+    ymuDb:
+      url: jdbc:mysql://119.23.78.160:3306/ymuDb?useUnicode=true&characterEncoding=utf8&useFastDateParsing=false&pinGlobalTxToPhysicalConnection=true&serverTimezone=Hongkong
+      username: root
+      password: 123456
+      driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    properties:
+      hibernate:
+        dialect: com.ymu.framework.sample.CoreMySQLDialect
+        hbm2ddl:
+          auto: update
