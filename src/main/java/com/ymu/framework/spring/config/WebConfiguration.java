@@ -1,5 +1,6 @@
 package com.ymu.framework.spring.config;
 
+import com.ymu.framework.spring.GlobalValidator;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -16,8 +17,8 @@ import java.util.List;
 /**
  * 定义消息转换器
  */
-//@Configuration
-//@EnableWebMvc
+@Configuration
+@EnableWebMvc
 public class WebConfiguration extends WebMvcConfigurerAdapter {
 
     //定义自己的消息转换机制
@@ -50,7 +51,7 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
      */
     @Override
     public Validator getValidator() {
-        return super.getValidator();
-        // return "global" validator
+//        return super.getValidator();
+         return new GlobalValidator();
     }
 }
