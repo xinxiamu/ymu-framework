@@ -1,11 +1,13 @@
 package com.ymu.framework.sample.controller;
 
 import com.ymu.framework.sample.vo.VUser;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@RestController("user")
+@RestController
+@RequestMapping("/user")
 public class UserController extends BaseController {
 
 	@PostMapping("/save")
@@ -14,8 +16,10 @@ public class UserController extends BaseController {
 	}
 
 	@RequestMapping(value = "/get",method = RequestMethod.GET)
-	public VUser getUser( VUser vUser) {
+	public VUser getUser(@Valid VUser vUser,BindingResult result) {
+		if (result.hasErrors()) {
+			result.reject("409","错误");
+		}
 		return vUser;
 	}
-
 }

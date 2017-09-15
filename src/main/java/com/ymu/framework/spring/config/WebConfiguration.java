@@ -51,7 +51,7 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
      */
     @Override
     public Validator getValidator() {
-//        return super.getValidator();
-         return new GlobalValidator();
+        return super.getValidator();
+//         return new GlobalValidator();
     }
 }

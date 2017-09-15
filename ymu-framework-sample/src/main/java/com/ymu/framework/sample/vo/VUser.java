@@ -1,8 +1,21 @@
 package com.ymu.framework.sample.vo;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class VUser {
+
+    @Min(2)
     private long id;
+
+    @NotNull
+    @NotEmpty
+    @Size(min=2, max=30, message = "名字长度必须在2和30之间")
     private String name;
+
     private int age;
 
     public long getId() {
