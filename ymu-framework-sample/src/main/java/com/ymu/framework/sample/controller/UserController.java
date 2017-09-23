@@ -17,9 +17,9 @@ public class UserController extends BaseController {
 
 	@RequestMapping(value = "/get",method = RequestMethod.GET)
 	public VUser getUser(@Valid VUser vUser,BindingResult result) {
-		if (result.hasErrors()) {
-			result.reject("409","错误");
-		}
+//		if (result.hasErrors()) {
+//			result.reject("409","错误");
+//		}
 		return vUser;
 	}
 }
