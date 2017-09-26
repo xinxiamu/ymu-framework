@@ -1,4 +1,4 @@
-package com.ymu.framework.web;
+package com.ymu.framework.spring.mvc.api;
 import java.io.Serializable;
 
 public class ApiRspResultVO implements Serializable {

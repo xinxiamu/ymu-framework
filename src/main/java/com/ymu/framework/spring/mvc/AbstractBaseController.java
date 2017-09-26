@@ -1,4 +1,4 @@
-package com.ymu.framework.web;
+package com.ymu.framework.spring.mvc;
 
 import javax.persistence.MappedSuperclass;
 
