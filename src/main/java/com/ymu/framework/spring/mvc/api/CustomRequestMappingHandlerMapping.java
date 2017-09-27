@@ -3,8 +3,14 @@ package com.ymu.framework.spring.mvc.api;
 import java.lang.reflect.Method;
 
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.util.AntPathMatcher;
+import org.springframework.util.PathMatcher;
+import org.springframework.util.StringValueResolver;
+import org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping;
 import org.springframework.web.servlet.mvc.condition.RequestCondition;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
+import org.springframework.web.servlet.mvc.support.AbstractControllerUrlHandlerMapping;
+import org.springframework.web.servlet.mvc.support.ControllerBeanNameHandlerMapping;
 
 public class CustomRequestMappingHandlerMapping extends RequestMappingHandlerMapping {
 

@@ -4,9 +4,12 @@ import com.ymu.framework.sample.inteceptor.AuthInteceptor;
 import com.ymu.framework.spring.mvc.api.CustomRequestMappingHandlerMapping;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.AntPathMatcher;
+import org.springframework.util.StringValueResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMethodMappingNamingStrategy;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 
@@ -18,7 +21,7 @@ public class WebConfig extends WebMvcConfigurationSupport{
     public RequestMappingHandlerMapping requestMappingHandlerMapping() {
         RequestMappingHandlerMapping handlerMapping = new CustomRequestMappingHandlerMapping();
         handlerMapping.setOrder(0);
-        handlerMapping.setInterceptors(getInterceptors()); 
+        handlerMapping.setInterceptors(getInterceptors());
         return handlerMapping;
     }
     
