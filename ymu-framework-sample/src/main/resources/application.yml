@@ -1,5 +1,6 @@
 server:
   port: 8080
+  context-path: /ymf
 spring:
   profiles:
     active: dev
@@ -21,3 +22,4 @@ spring:
 spring:
   profiles:
     include: url-path
+

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController extends BaseController {
 
 	@InitBinder
@@ -34,9 +34,9 @@ public class UserController extends BaseController {
 	@Value("${index.index}")
 	private String str;
 
-	@GetMapping("${index.index}")
-	public String getStr() {
-		return str;
+	@GetMapping("${user.get-by-id}")
+	public long getUserById(@PathVariable(name = "id") long id) {
+		return id;
 	}
 
 }
