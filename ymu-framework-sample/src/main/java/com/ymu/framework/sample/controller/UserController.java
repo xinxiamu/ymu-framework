@@ -34,9 +34,9 @@ public class UserController extends BaseController {
 	@Value("${index.index}")
 	private String str;
 
-	@GetMapping("${user.get-by-id}")
-	public long getUserById(@PathVariable(name = "id") long id) {
-		return id;
+	@GetMapping("${users.get-by-id}/{id}/name/{name}")
+	public long getUserById(@PathVariable(name = "id") long id,@PathVariable(name = "name") long idd) {
+		return id + idd;
 	}
 
 }

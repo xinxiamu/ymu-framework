@@ -3,4 +3,4 @@ index:
   index: /index
 
 users:
-  get-by-id: id
+  get-by-id: /id
