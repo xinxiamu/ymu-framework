@@ -6,27 +6,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/{version}")
+@RequestMapping("${base-url}")
 public class IndexController extends BaseController {
 
-	@GetMapping("/index")
+	@GetMapping("${index.index}")
 	public String index() {
 		return "index";
 	}
 
-	@GetMapping("/index")
+	@GetMapping("${index.index}")
 	@ApiVersion(2)
 	public String index2() {
 		return "index2";
 	}
 
-	@GetMapping("/index")
+	@GetMapping("${index.index}")
 	@ApiVersion(3)
 	public String index3() {
 		return "index3";
 	}
 
-	@GetMapping("/index")
+	@GetMapping("${index.index}")
 	@ApiVersion(5)
 	public String index5() {
 		return "index5";

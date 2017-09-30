@@ -16,3 +16,8 @@ spring:
         dialect: com.ymu.framework.sample.CoreMySQLDialect
         hbm2ddl:
           auto: update
+
+---
+spring:
+  profiles:
+    include: url-path
