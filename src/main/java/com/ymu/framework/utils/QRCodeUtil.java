@@ -26,7 +26,6 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
  * 二维码处理
  * 
  * @author Administrator
- * @param <EncodeHintType>
  *
  */
 public final class QRCodeUtil {
