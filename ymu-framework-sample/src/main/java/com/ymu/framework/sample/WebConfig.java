@@ -24,7 +24,7 @@ public class WebConfig extends WebMvcConfigurationSupport{
         handlerMapping.setInterceptors(getInterceptors());
         return handlerMapping;
     }
-    
+
     @Override
     protected void addInterceptors(InterceptorRegistry registry) {
     	// 注册拦截器
