@@ -6,6 +6,7 @@ package com.ymu.framework.utils.security;
  */
 public enum KeyEnum {
 	HMAC_MD5("HmacMD5"),
+	HmacSHA256("HmacSHA256"),
 	AES("AES");
 	
 	private String value;

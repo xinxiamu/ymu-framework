@@ -10,4 +10,10 @@ public class HmacUtilsTest {
 		System.out.println(HmacUtils.getJdkHmacMD5(keyStr, "ddd"));
 	}
 
+	@Test
+	public void hmacSha256() {
+		String keyStr = "32EB7225CCAC226EFB1C4975D67A14940A8279CF0B65C6B93A7E7FB89E8BA886";
+		System.out.println(HmacUtils.getJdkHmacSHA256("张木天".getBytes(),keyStr));
+	}
+
 }
