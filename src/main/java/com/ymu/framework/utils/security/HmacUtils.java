@@ -72,5 +72,43 @@ public final class HmacUtils {
         return null;
     }
 
+    /**
+     * 加密并返回加密后哈希散列字符串。
+     * @param key
+     * @param data
+     * @return
+     */
+    public static String getJdkHmacSHA256(String key,byte[] data) {
+        try {
+            SecretKeySpec signingKey = new SecretKeySpec(key.getBytes(), "HmacSHA256");
+            Mac mac = Mac.getInstance("HmacSHA256");
+            mac.init(signingKey);
+            return byteArrayToHexString(mac.doFinal(data));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
+    /**
+     * 将加密后的字节数组转换成字符串
+     *
+     * @param b 字节数组
+     * @return 字符串
+     */
+    public static String byteArrayToHexString(byte[] b) {
+        StringBuilder hs = new StringBuilder();
+        String stmp;
+        for (int n = 0; b!=null && n < b.length; n++) {
+            stmp = Integer.toHexString(b[n] & 0XFF);
+            if (stmp.length() == 1)
+                hs.append('0');
+            hs.append(stmp);
+        }
+        return hs.toString().toLowerCase();
+    }
+
 
 }

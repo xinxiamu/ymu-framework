@@ -12,8 +12,11 @@ public class HmacUtilsTest {
 
 	@Test
 	public void hmacSha256() {
-		String keyStr = "32EB7225CCAC226EFB1C4975D67A14940A8279CF0B65C6B93A7E7FB89E8BA886";
-		System.out.println(HmacUtils.getJdkHmacSHA256("张木天".getBytes(),keyStr));
+		String keyStr = "95439b0863c241c63a861b87d1e647b7";
+		System.out.println(HmacUtils.getJdkHmacSHA256(keyStr,"{\"mobile\":\"13717899496\",\"name\":\"王呈祥\",\"idno\":\"130929198309068490\"}"));
+
+//		byte[] aa = HmacUtils.getJdkHmacSHA256("{\"mobile\":\"13717899496\",\"name\":\"王呈祥\",\"idno\":\"130929198309068490\"}".getBytes(), keyStr);
+//		System.out.println(Base64Utils.base64Encode(aa));
 	}
 
 }
