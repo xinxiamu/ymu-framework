@@ -6,9 +6,9 @@
 	<groupId>com.ymu</groupId>
 	<artifactId>ymu-framework</artifactId>
 	<version>1.0</version>
-    <modules>
+    <!--<modules>
         <module>ymu-framework-sample</module>
-    </modules>
+    </modules>-->
     <packaging>pom</packaging>
 
 	<name>ymu-framework</name>
