@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping
 public class IndexController extends BaseController {
 
+//	@Autowired
+//	private Configuration ftlCfg;
+
 	@GetMapping("${index.index}")
 	public String index() {
 		return "index";
@@ -31,4 +34,16 @@ public class IndexController extends BaseController {
 	public String index5() {
 		return "index5";
 	}
+
+	/*@GetMapping("/testFreemarker")
+	public String testFreemarker() throws IOException, TemplateException {
+		Template temp = ftlCfg.getTemplate("test.ftlh");
+		Writer out = new OutputStreamWriter(System.out);
+		Map data = new HashMap();
+		data.put("username","zmt");
+		data.put("age",18);
+		temp.process(data,out);
+
+		return "";
+	}*/
 }
