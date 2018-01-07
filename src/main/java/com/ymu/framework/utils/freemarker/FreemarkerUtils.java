@@ -1,25 +1,25 @@
-package com.ymu.framework.freemarker;
+package com.ymu.framework.utils.freemarker;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
-import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.HashMap;
-import java.util.Map;
 
-public final class FreemarkerUtils {
+public class FreemarkerUtils {
 
     private static Configuration cfg;
 
     private static FreemarkerUtils freemarkerUtils;
 
-    private FreemarkerUtils() {
-    }
-
+    /**
+     *
+     * @param templatesPath 模板目录
+     * @return
+     * @throws IOException
+     */
     public static FreemarkerUtils newInstance(String templatesPath) throws IOException {
 
         if (freemarkerUtils == null) {
@@ -28,7 +28,7 @@ public final class FreemarkerUtils {
 
         //初始化freemarker,单例，只创建一次
         if (freemarkerUtils.cfg == null) {
-            Configuration cfg = new Configuration(Configuration.VERSION_2_3_27);
+             cfg = new Configuration(Configuration.VERSION_2_3_27);
 
             cfg.setDirectoryForTemplateLoading(new File(templatesPath));
 
@@ -47,11 +47,11 @@ public final class FreemarkerUtils {
      * @param data 数据结构。
      * @return 返回渲染后的静态文件。html,否则返回null
      */
-    public static final String getFreemarkerDealText(String ftlhFullName,Object data)  {
+    public final  String getFreemarkerDealText(String ftlhFullName,Object data)  {
         StringWriter out = new StringWriter();
         String text = null;
         try {
-            //        Template temp = cfg.getTemplate("test.ftlh");
+            //Template temp = cfg.getTemplate("test.ftlh");
             Template temp = cfg.getTemplate(ftlhFullName);
             temp.process(data,out);
             text = out.toString();
