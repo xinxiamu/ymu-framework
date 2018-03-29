@@ -1,9 +1,0 @@
-<html>
-<head>
-    <title>Welcome!</title>
-</head>
-<body>
-${username}
-${age!}
-</body>
-</html>

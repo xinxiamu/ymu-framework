@@ -1,6 +1,0 @@
-base-url: /{version}
-index:
-  index: /index
-
-users:
-  get-by-id: /id

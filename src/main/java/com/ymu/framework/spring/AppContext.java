@@ -3,11 +3,13 @@ package com.ymu.framework.spring;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
 
 /**
  * 用于便捷的获取Spring上下文
  */
-public final class AppContext implements ApplicationContextAware {
+@Component
+public class AppContext implements ApplicationContextAware {
 
     private static ApplicationContext appContext;
 
@@ -19,5 +21,7 @@ public final class AppContext implements ApplicationContextAware {
     public static ApplicationContext getApplicationContext() {
         return appContext;
     }
+
+
 	
 }
