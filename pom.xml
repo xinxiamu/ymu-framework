@@ -6,10 +6,7 @@
     <groupId>com.ymu</groupId>
     <artifactId>ymu-framework</artifactId>
     <version>1.0</version>
-    <!--<modules>
-        <module>ymu-framework-sample</module>
-    </modules>-->
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 
     <name>ymu-framework</name>
     <description>核心框架</description>
@@ -314,13 +311,6 @@
             <version>${okhtt.version}</version>
         </dependency>
 
-        <!--///////////////// 分布式文件系统 ///////////////-->
-       <!-- <dependency>
-            <groupId>org.csource</groupId>
-            <artifactId>fastdfs-client-java</artifactId>
-            <version>1.27-SNAPSHOT</version>
-        </dependency>-->
-
     </dependencies>
 
     <repositories>
@@ -333,9 +323,31 @@
 
     <build>
         <plugins>
-            <plugin>
+            <!--这样打包，不能作为lib形式调用-->
+            <!--<plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>-->
+
+            <!--打包成lib-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <fork>true</fork>
+                    <maxmem>1024m</maxmem>
+                    <meminitial>256m</meminitial>
+                    <encoding>UTF-8</encoding>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <debug>true</debug>
+                    <debuglevel>lines,vars,source</debuglevel>
+                    <!-- [#2413] Make compiler warnings a bit more visible But don't fail
+                        (yet) -->
+                    <compilerArgs>
+                        <arg>-Xlint:varargs</arg>
+                    </compilerArgs>
+                </configuration>
             </plugin>
 
             <!-- javadoc生成插件。使用：http://maven.apache.org/components/plugins/maven-javadoc-plugin -->
@@ -362,6 +374,14 @@
                 <!-- <dependencies> 自动修复不规范注解 <dependency> <groupId>org.codehaus.mojo</groupId>
                     <artifactId>clirr-maven-plugin</artifactId> <version>2.8</version> </dependency>
                     </dependencies> -->
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
             </plugin>
 
         </plugins>
