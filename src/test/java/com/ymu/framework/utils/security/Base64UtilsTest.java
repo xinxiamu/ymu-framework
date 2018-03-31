@@ -12,6 +12,12 @@ public class Base64UtilsTest {
 		System.out.println("-------------");
 		System.out.println(Base64Utils.base64Decode(encode));
 	}
+
+	@Test
+	public void testB64ToStr() {
+		String b64Str = "eyJuYW1lIjoic2Rmc2RzZiIsInBhc3N3b3JkIjoiZHNmc2FkZiIsInN5c3RlbVNvdXJjZUlkIjoiNDAyODgxZmU2MjIzZTM4NTAxNjIyM2U5MDNiYjAwMDAiLCJjYWNoZSI6ZmFsc2UsInRva2VuVXNlcklkIjoyLCJ0b2tlbiI6IjE4NmY1YTEyZmY5ZDY1NjNlZmNjNjExNjlkMmJjODk0IiwicmFuZCI6IjEwOjQ5OjA2IEFNIn0%3D";
+		System.out.println(">>>>>>str:" + Base64Utils.base64Decode(b64Str));
+	}
 	
 	@Test
 	public void generateImgByBase64StrTest() {
