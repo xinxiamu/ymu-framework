@@ -1,16 +1,8 @@
 package com.ymu.framework.dao.entity.strategy;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Version;
-import javax.validation.constraints.NotNull;
 
 @MappedSuperclass
 public abstract class EntityBase implements Cloneable, Serializable {
@@ -23,14 +15,12 @@ public abstract class EntityBase implements Cloneable, Serializable {
 	/**
 	 * 是否无效（默认是有效）
 	 */
-	@NotNull
 	@Column(columnDefinition = "decimal(1,0)")
 	protected Boolean disabled;
 
 	/**
 	 * 最后更新时间
 	 */
-	@NotNull
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
 	protected Date lastUpdated;
@@ -38,7 +28,6 @@ public abstract class EntityBase implements Cloneable, Serializable {
 	/**
 	 * 创建时间
 	 */
-	@NotNull
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
 	protected Date dateCreated;
@@ -46,7 +35,6 @@ public abstract class EntityBase implements Cloneable, Serializable {
 	/**
 	 * 数据库版本号（用于乐观锁）
 	 */
-	@NotNull
 	@Column(name = "version")
 	@Version
 	protected Integer version;
