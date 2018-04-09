@@ -1,4 +1,4 @@
-package com.ymu.framework.spring;
+package com.ymu.framework.spring.config;
 
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;

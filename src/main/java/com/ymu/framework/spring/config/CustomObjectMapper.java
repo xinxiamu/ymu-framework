@@ -1,4 +1,4 @@
-package com.ymu.framework.spring;
+package com.ymu.framework.spring.config;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;

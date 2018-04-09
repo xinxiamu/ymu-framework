@@ -1,4 +1,4 @@
-package com.ymu.framework.spring;
+package com.ymu.framework.spring.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ymu.framework.base.VBase;

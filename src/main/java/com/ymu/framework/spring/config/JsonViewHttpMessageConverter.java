@@ -1,4 +1,4 @@
-package com.ymu.framework.spring;
+package com.ymu.framework.spring.config;
 
 import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.JavaType;
