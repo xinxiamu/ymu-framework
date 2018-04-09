@@ -312,6 +312,13 @@
             <version>${okhtt.version}</version>
         </dependency>
 
+        <!--优雅生成代码-->
+        <dependency>
+            <groupId>com.squareup</groupId>
+            <artifactId>javapoet</artifactId>
+            <version>1.10.0</version>
+        </dependency>
+
     </dependencies>
 
     <repositories>
