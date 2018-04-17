@@ -20,6 +20,12 @@ import java.util.Set;
  */
 public class SensitiveFormatAnnotationFormatterFactory implements AnnotationFormatterFactory<SensitiveFormat> {
 
+    SensitiveCallback callback;
+
+    public SensitiveFormatAnnotationFormatterFactory(SensitiveCallback callback) {
+        this.callback = callback;
+    }
+
     @Override
     public Set<Class<?>> getFieldTypes() {
         Set<Class<?>> fieldTypes = new HashSet<>();
@@ -29,11 +35,11 @@ public class SensitiveFormatAnnotationFormatterFactory implements AnnotationForm
 
     @Override
     public Printer<?> getPrinter(SensitiveFormat sensitiveFormat, Class<?> aClass) {
-        return new SensitiveFormatter();
+        return new SensitiveFormatter(callback);
     }
 
     @Override
     public Parser<?> getParser(SensitiveFormat sensitiveFormat, Class<?> aClass) {
-        return new SensitiveFormatter();
+        return new SensitiveFormatter(callback);
     }
 }
