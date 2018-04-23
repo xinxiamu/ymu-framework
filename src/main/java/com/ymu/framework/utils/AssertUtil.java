@@ -11,10 +11,4 @@ public final class AssertUtil extends org.springframework.util.Assert {
 		}
 	}
 
-	public static final void notNull(Object obj) {
-		if (obj == null) {
-			throw new NullPointerException("obj不能null");
-		}
-	}
-	
 }

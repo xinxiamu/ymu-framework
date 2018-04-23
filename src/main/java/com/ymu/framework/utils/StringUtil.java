@@ -12,9 +12,25 @@ import java.util.regex.Pattern;
  */
 public final class StringUtil extends org.apache.commons.lang3.StringUtils {
 
-	/*public static void main(String[] args) {
-		System.out.println(javaFieldName2SqlFieldName("UserName"));
-	}*/
+//	public static void main(String[] args) {
+////		System.out.println(javaFieldName2SqlFieldName("UserName"));
+//
+////		System.out.println(isInteger("3.9"));
+//
+////		System.out.println(isNumeric("3"));
+//	}
+
+	/**
+	 *  判断字符串是否为整数。
+ 	 * @param str
+	 * @return 是整形返回true，否则返回false
+	 */
+	public static final boolean isInteger(final String str) {
+		AssertUtil.nullOrEmptyException(str);
+		Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");
+		return pattern.matcher(str).matches();
+	}
+
 
 	/**
 	 * 把java驼峰命名字段改成下划线分割的sql字段。例如：userName -> user_name,GoodsDetails ->

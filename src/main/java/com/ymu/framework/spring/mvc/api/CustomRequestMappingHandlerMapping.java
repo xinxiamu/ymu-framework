@@ -47,18 +47,18 @@ public class CustomRequestMappingHandlerMapping extends RequestMappingHandlerMap
     }
 
     @Override
-    protected RequestCondition<ApiVesrsionCondition> getCustomTypeCondition(Class<?> handlerType) {
+    protected RequestCondition<ApiVersionCondition> getCustomTypeCondition(Class<?> handlerType) {
         ApiVersion apiVersion = AnnotationUtils.findAnnotation(handlerType, ApiVersion.class); 
         return createCondition(apiVersion);
     }
 
     @Override
-    protected RequestCondition<ApiVesrsionCondition> getCustomMethodCondition(Method method) {
+    protected RequestCondition<ApiVersionCondition> getCustomMethodCondition(Method method) {
         ApiVersion apiVersion = AnnotationUtils.findAnnotation(method, ApiVersion.class);
         return createCondition(apiVersion);
     }
     
-    private RequestCondition<ApiVesrsionCondition> createCondition(ApiVersion apiVersion) {
-        return apiVersion == null ? null : new ApiVesrsionCondition(apiVersion.value());
+    private RequestCondition<ApiVersionCondition> createCondition(ApiVersion apiVersion) {
+        return apiVersion == null ? null : new ApiVersionCondition(apiVersion.value());
     }
 }
