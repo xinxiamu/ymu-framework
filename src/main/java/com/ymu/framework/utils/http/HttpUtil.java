@@ -8,15 +8,15 @@ import java.net.URLConnection;
 import java.util.List;
 import java.util.Map;
 
-public class HttpUtil {
+public final class HttpUtil {
 	
-	HttpUtil() {
+	private HttpUtil() {
 	}
    
-	public static String doGet(String url) {
+	public static String doGet(final String url) {
 		 return doGet(url, null);
 	}
-    public static String doGet(String url, String parameters) {
+    public static String doGet(final String url, String parameters) {
         String result = "";
         BufferedReader in = null;
         try {
@@ -51,11 +51,11 @@ public class HttpUtil {
         return result;
     }
     
-    public static String doPost(String url) {
+    public static String doPost(final String url) {
     	return doPost(url, null);
     }
     
-    public static String doPost(String url, String parameters) {
+    public static String doPost(final String url, String parameters) {
         PrintWriter out = null;
         BufferedReader in = null;
         String result = "";

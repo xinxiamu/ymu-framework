@@ -6,7 +6,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-public abstract class AbstractController {
+public abstract class BaseController {
 
     protected final Logger logger = LogManager.getLogger(this.getClass());
 
