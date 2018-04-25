@@ -10,6 +10,7 @@ package com.ymu.framework.spring.mvc.sensitive;
  * @updateTime
  * @since 1.0.0
  */
+@FunctionalInterface
 public interface SensitiveCallback {
 
     String filter(String oriStr);

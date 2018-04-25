@@ -23,7 +23,7 @@ public class JsonViewHttpMessageConverter
 	/**
 	 * Creates a new {@link TypeConstrainedMappingJackson2HttpMessageConverter} for the given type.
 	 *
-	 * @param type must not be {@literal null}.
+	 * @param type must not be {@literal null}.消息转换必须继承的类型。只有继承该类型的传参或者返回才会进入该转化器。
 	 */
 	public JsonViewHttpMessageConverter(Class<?> type) {
 		super(type);

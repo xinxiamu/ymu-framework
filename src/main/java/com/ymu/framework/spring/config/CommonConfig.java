@@ -59,21 +59,25 @@ public class CommonConfig {
         RelProvider relProvider = beanFactory.getBean(DELEGATING_REL_PROVIDER_BEAN_NAME, RelProvider.class);
 //        ObjectMapper halObjectMapper = beanFactory.getBean(HAL_OBJECT_MAPPER_BEAN_NAME, ObjectMapper.class);
         ObjectMapper halObjectMapper = new CustomObjectMapper();
-
         halObjectMapper.registerModule(new Jackson2HalModule());
         halObjectMapper.setHandlerInstantiator(new Jackson2HalModule.HalHandlerInstantiator(relProvider, curieProvider,null));
 
-        JsonViewHttpMessageConverter halConverter = new JsonViewHttpMessageConverter(VBase.class);
+        JsonViewHttpMessageConverter halConverter = new JsonViewHttpMessageConverter(Object.class);
         List<MediaType> list = new ArrayList<>();
         list.add(MediaType.APPLICATION_JSON_UTF8);
         list.add(HAL_JSON);
+//        list.add(MediaType.ALL);
         halConverter.setSupportedMediaTypes(list);
         halConverter.setObjectMapper(halObjectMapper);
 
         return halConverter;
     }
 
-
+    /**
+     * 设置跨域请求。
+     * @param corsRegistrationConfig
+     * @return
+     */
     @Bean
     public CorsFilter corsFilter(@Autowired CorsRegistrationConfig corsRegistrationConfig) {
         //1.添加CORS配置信息
