@@ -1,10 +1,16 @@
 package com.ymu.framework.base;
 
+import com.ymu.framework.spring.mvc.ModifyHttpServletRequestWrapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public abstract class BaseController {
 
@@ -15,7 +21,19 @@ public abstract class BaseController {
     }
 
     @ModelAttribute
-    public void setReqAndRes() {
+    public void setReqAndRes(HttpServletRequest request) {
+        System.out.println(">>>>>ModelAttribute:" + request.getLocalAddr() );
+
+    }
+
+    protected HttpServletRequest getRequest() {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        return request;
+    }
+
+    protected HttpServletResponse getResponse() {
+        HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
+        return response;
     }
 
 }
