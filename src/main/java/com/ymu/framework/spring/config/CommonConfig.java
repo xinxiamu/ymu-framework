@@ -110,7 +110,7 @@ public class CommonConfig {
         registration.addUrlPatterns("/*");
 //        registration.addInitParameter("abc", "abc-value");
         registration.setName("indexFilter");
-        registration.setOrder(Integer.MAX_VALUE - 1000);
+        registration.setOrder(1);
         return registration;
     }
 }
