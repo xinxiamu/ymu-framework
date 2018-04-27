@@ -103,6 +103,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!--把属性文件配置转换成类-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
         <!--////////// Apache common start /////////// -->
         <dependency>
             <groupId>commons-beanutils</groupId>

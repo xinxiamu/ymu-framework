@@ -2,10 +2,12 @@ package com.ymu.framework.spring.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ymu.framework.base.VBase;
+import com.ymu.framework.filter.IndexFilter;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.hateoas.RelProvider;
@@ -76,21 +78,21 @@ public class CommonConfig {
 
     /**
      * 设置跨域请求。
-     * @param corsRegistrationConfig
+     * @param corsRegistration
      * @return
      */
     @Bean
-    public CorsFilter corsFilter(@Autowired CorsRegistrationConfig corsRegistrationConfig) {
+    public CorsFilter corsFilter(@Autowired CorsRegistration corsRegistration) {
         //1.添加CORS配置信息
         CorsConfiguration config = new CorsConfiguration();
         //放行哪些原始域
-        config.addAllowedOrigin(corsRegistrationConfig.getAllowedOrigins());
+        config.addAllowedOrigin(corsRegistration.getAllowedOrigins());
         //是否发送Cookie信息
-        config.setAllowCredentials(corsRegistrationConfig.getAllowCredentials());
+        config.setAllowCredentials(corsRegistration.getAllowCredentials());
         //放行哪些原始域(请求方式)
-        config.addAllowedMethod(corsRegistrationConfig.getAllowedMethods());
+        config.addAllowedMethod(corsRegistration.getAllowedMethods());
         //放行哪些原始域(头部信息)
-        config.addAllowedHeader(corsRegistrationConfig.getAllowedHeaders());
+        config.addAllowedHeader(corsRegistration.getAllowedHeaders());
         //暴露哪些头部信息（因为跨域访问默认不能获取全部头部信息）
 //        config.addExposedHeader("header-1,header-2");
 
@@ -100,5 +102,15 @@ public class CommonConfig {
 
         //3.返回新的CorsFilter.
         return new CorsFilter(configSource);
+    }
+
+    @Bean
+    public FilterRegistrationBean test2FilterRegistration() {
+        FilterRegistrationBean registration = new FilterRegistrationBean(new IndexFilter());
+        registration.addUrlPatterns("/*");
+//        registration.addInitParameter("abc", "abc-value");
+        registration.setName("indexFilter");
+        registration.setOrder(Integer.MAX_VALUE - 1000);
+        return registration;
     }
 }

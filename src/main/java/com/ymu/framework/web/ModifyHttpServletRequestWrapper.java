@@ -1,4 +1,4 @@
-package com.ymu.framework.spring.mvc;
+package com.ymu.framework.web;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;

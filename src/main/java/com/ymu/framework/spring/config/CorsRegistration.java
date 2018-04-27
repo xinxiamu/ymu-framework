@@ -6,9 +6,9 @@ import org.springframework.context.annotation.Configuration;
 /**
  * 跨域配置信息对象。
  */
-@Configuration
+@Configuration(value = "corsRegistration")
 @ConfigurationProperties(prefix = "custom.cors")
-public class CorsRegistrationConfig {
+public class CorsRegistration {
 
     //描述 : 扫描地址
     private String mapping;
