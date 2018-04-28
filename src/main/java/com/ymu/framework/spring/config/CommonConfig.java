@@ -64,8 +64,8 @@ public class CommonConfig {
         halObjectMapper.registerModule(new Jackson2HalModule());
         halObjectMapper.setHandlerInstantiator(new Jackson2HalModule.HalHandlerInstantiator(relProvider, curieProvider,null));
 
-        JsonViewHttpMessageConverter halConverter = new JsonViewHttpMessageConverter(Object.class);
-//        JsonViewHttpMessageConverter halConverter = new JsonViewHttpMessageConverter(VBase.class);//请求Bean,响应Bean必须继承VBase
+//        JsonViewHttpMessageConverter halConverter = new JsonViewHttpMessageConverter(Object.class);
+        JsonViewHttpMessageConverter halConverter = new JsonViewHttpMessageConverter(VBase.class);//请求Bean,响应Bean必须继承VBase
         List<MediaType> list = new ArrayList<>();
         list.add(MediaType.APPLICATION_JSON_UTF8);
         list.add(HAL_JSON);
