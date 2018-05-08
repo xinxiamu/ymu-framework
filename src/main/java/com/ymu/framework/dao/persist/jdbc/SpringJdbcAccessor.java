@@ -38,7 +38,7 @@ public final class SpringJdbcAccessor {
 	/**
 	 * 查询，返回结果集列表
 	 * 
-	 * @param dataSource
+	 * @param jdbcTemplate
 	 * @param sql
 	 * @return
 	 * @throws Exception
@@ -61,13 +61,9 @@ public final class SpringJdbcAccessor {
 		final String sql_insert = sql;
 
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-		jdbcTemplate.update(new PreparedStatementCreator() {
-
-			@Override
-			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-				PreparedStatement ps = con.prepareStatement(sql_insert, new String[] { "id" });
-				return ps;
-			}
+		jdbcTemplate.update(con -> {
+			PreparedStatement ps = con.prepareStatement(sql_insert, new String[] { "id" });
+			return ps;
 		}, keyHolder);
 
 		long id = (Long) keyHolder.getKey();

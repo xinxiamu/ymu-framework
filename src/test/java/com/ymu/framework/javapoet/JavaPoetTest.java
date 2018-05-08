@@ -13,6 +13,8 @@ import java.io.IOException;
  * https://github.com/square/javapoet
  *
  * https://blog.csdn.net/xuguobiao/article/details/72775730
+ *
+ * https://cloud.tencent.com/developer/article/1006210
  */
 public class JavaPoetTest {
 

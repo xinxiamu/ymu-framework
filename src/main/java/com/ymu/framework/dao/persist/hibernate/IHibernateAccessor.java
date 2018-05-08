@@ -20,7 +20,7 @@ public interface IHibernateAccessor {
 	
 	/**
 	 * 批量插入数据
-	 * @param sessionFactory
+	 * @param session
 	 * @param objects
 	 * @return 	返回插入总条数
 	 * @throws BaseException
