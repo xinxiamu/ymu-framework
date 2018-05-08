@@ -7,9 +7,11 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.hateoas.RelProvider;
 import org.springframework.hateoas.hal.CurieProvider;
 import org.springframework.hateoas.hal.Jackson2HalModule;
@@ -51,10 +53,12 @@ public class CommonConfig {
 //    private static final String HAL_OBJECT_MAPPER_BEAN_NAME = "_halObjectMapper";
 
     /**
-     * 消息转换。集成超媒体连接。
+     * 消息转换。集成超媒体连接。拥有内部服务
      * @return
      */
     @Bean
+    @Primary
+    @Qualifier(value = "jsonViewHttpMessageConverter")
     public JsonViewHttpMessageConverter jsonViewHttpMessageConverter() {
         //Need to override some behaviour in the HAL Serializer...so let's make our own
         CurieProvider curieProvider = getCurieProvider(beanFactory);
@@ -66,6 +70,30 @@ public class CommonConfig {
 
         JsonViewHttpMessageConverter halConverter = new JsonViewHttpMessageConverter(Object.class);
 //        JsonViewHttpMessageConverter halConverter = new JsonViewHttpMessageConverter(VBase.class);//请求Bean,响应Bean必须继承VBase
+        List<MediaType> list = new ArrayList<>();
+        list.add(MediaType.APPLICATION_JSON_UTF8);
+        list.add(HAL_JSON);
+        halConverter.setSupportedMediaTypes(list);
+        halConverter.setObjectMapper(halObjectMapper);
+
+        return halConverter;
+    }
+
+    /**
+     * 对外服务消息转换。必须是继承自VBase的类型。
+     * @return
+     */
+    @Bean
+    @Qualifier(value = "jsonViewHttpMessageConverterOpen")
+    public JsonViewHttpMessageConverter jsonViewHttpMessageConverterOpen() {
+        CurieProvider curieProvider = getCurieProvider(beanFactory);
+        RelProvider relProvider = beanFactory.getBean(DELEGATING_REL_PROVIDER_BEAN_NAME, RelProvider.class);
+//        ObjectMapper halObjectMapper = beanFactory.getBean(HAL_OBJECT_MAPPER_BEAN_NAME, ObjectMapper.class);
+        ObjectMapper halObjectMapper = new CustomObjectMapper();
+        halObjectMapper.registerModule(new Jackson2HalModule());
+        halObjectMapper.setHandlerInstantiator(new Jackson2HalModule.HalHandlerInstantiator(relProvider, curieProvider,null));
+
+        JsonViewHttpMessageConverter halConverter = new JsonViewHttpMessageConverter(VBase.class);//请求Bean,响应Bean必须继承VBase
         List<MediaType> list = new ArrayList<>();
         list.add(MediaType.APPLICATION_JSON_UTF8);
         list.add(HAL_JSON);
