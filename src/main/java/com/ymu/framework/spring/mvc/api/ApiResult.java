@@ -65,7 +65,7 @@ public class ApiResult<T> extends VBase {
 
 	@Override
 	public String toString() {
-		return JSON.toJSONString(this);
+		return super.toString();
 	}
 
 	/*public static void main(String[] args) {
