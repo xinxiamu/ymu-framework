@@ -319,7 +319,7 @@ public class HttpsUtil {
                 throw new UnsupportedOperationException(
                         "Use addCookies method set cookie");
             }
-            if (HEADER_AUTHORIZATION.equalsIgnoreCase(name)) {
+            if (HEADER_AUTHORIZATION.equalsIgnoreCase(name) && value.contains("Basic")) {
                 throw new UnsupportedOperationException(
                         "Use setUsername and setPassword method for Basic Authorization");
             }
@@ -395,9 +395,9 @@ public class HttpsUtil {
 
         /**
          * 添加上传数据
-         *
          * @param name
-         * @param values
+         * @param filename
+         * @param data
          * @return
          */
         public HttpRequest addUploads(String name, String filename, byte[] data) {
@@ -415,9 +415,8 @@ public class HttpsUtil {
 
         /**
          * 添加上传文件
-         *
          * @param name
-         * @param files
+         * @param file
          * @return
          * @throws IOException
          */
