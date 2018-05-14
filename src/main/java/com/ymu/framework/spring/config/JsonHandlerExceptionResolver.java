@@ -3,6 +3,8 @@ package com.ymu.framework.spring.config;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.ymu.framework.spring.mvc.api.ApiException;
+import com.ymu.framework.utils.time.JDateTimeStyle;
+import com.ymu.framework.utils.time.JDateTimeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -100,12 +102,12 @@ public class JsonHandlerExceptionResolver extends SimpleMappingExceptionResolver
 		try (PrintWriter printWriter = new PrintWriter(stringWriter)){
 			throwable.printStackTrace(printWriter);
 		}
-		data.put("cause",stringWriter.toString());
+		data.put("error",stringWriter.toString());
 		log.error("The handleExceptionJsonMessage will handled this exception.", throwable);
 		if (throwable instanceof ApiException) {
             ApiException apiException = (ApiException) throwable;
-            data.put("error", apiException.getMessage());
-            data.put("code", apiException.getCode());
+            data.put("message", apiException.getMessage());
+            data.put("status", apiException.getCode());
         } else if (throwable instanceof MethodArgumentNotValidException) {
             StringBuilder errorMessageBuilder = new StringBuilder();
             MethodArgumentNotValidException methodArgumentNotValidException = (MethodArgumentNotValidException) throwable;
@@ -123,12 +125,14 @@ public class JsonHandlerExceptionResolver extends SimpleMappingExceptionResolver
                 }
                 errorMessageBuilder.append(objectError.getDefaultMessage());
             }
-            data.put("error", errorMessageBuilder);
+            data.put("message", errorMessageBuilder);
+            data.put("status",HttpStatus.INTERNAL_SERVER_ERROR.value());
         } else {
-            data.put("error", throwable.getMessage() == null ? throwable.getClass().getCanonicalName()
-                    : throwable.getMessage());
+			data.put("message","系统内部异常");
+			data.put("status",HttpStatus.INTERNAL_SERVER_ERROR.value());
         }
 		data.put("type", throwable.getClass().getCanonicalName());
+		data.put("timestamp",JDateTimeUtils.getCurrentSystemDateTime(JDateTimeStyle.YYYY_MM_DD_HH_MM.getValue()));
 		String json = JSON.toJSONString(data, SerializerFeature.DisableCircularReferenceDetect);
 		if (callbackName != null) {
             out.print(callbackName);

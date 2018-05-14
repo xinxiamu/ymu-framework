@@ -549,7 +549,7 @@ public final class DateUtil2 {
      * 根据一个日期，返回是星期几
      * 1=星期日 7=星期六，其他类推   
      *    
-     * @param sdate   
+     * @param date
      * @return   
      */
     public static int getWeekByDate(Date date) {

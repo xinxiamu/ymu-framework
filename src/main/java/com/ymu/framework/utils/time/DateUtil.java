@@ -10,17 +10,9 @@ import java.util.Date;
 import java.util.Formatter;
 import java.util.Locale;
 
+
 /**
- * 关于日期和时间处理的辅助类
- * 
- * @author ZhengJianYan
- * @since JDK1.6
- * @version V1.0, 2012-06-20
- * @see UpdateName:
- * @see UpdateDate:
- * @see Copyright:JuFeng
- * @see QQ:375273058
- * @see <a href="mailto:13664988858@139.com">Email</a>
+ *  关于日期和时间处理的辅助类
  */
 public class DateUtil {
 
