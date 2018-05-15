@@ -3,9 +3,9 @@ package com.ymu.framework.spring.mvc.api;
 import org.springframework.util.Assert;
 
 /**
- *  API错误消息。内部服务统一异常
+ *  API错误消息。对外暴露统一异常。
  */
-public class ApiException extends RuntimeException {
+public class ApiOpenException extends RuntimeException {
 
 	private int code;
 
@@ -19,8 +19,8 @@ public class ApiException extends RuntimeException {
 		return message;
 	}
 
-	public ApiException(int code, String message, Throwable throwable) {
-		super(ApiException.class.getCanonicalName().concat(":").concat(String.valueOf(code)).concat(":")
+	public ApiOpenException(int code, String message, Throwable throwable) {
+		super(ApiOpenException.class.getCanonicalName().concat(":").concat(String.valueOf(code)).concat(":")
 				.concat(message), throwable);
 		Assert.notNull(message, "The ApiException's message should not be null");
 		this.code = code;

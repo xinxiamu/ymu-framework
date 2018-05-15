@@ -6,7 +6,6 @@ package com.ymu.framework.spring.config;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.parser.Feature;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.MediaType;
@@ -83,7 +82,7 @@ public class JsonHttpMessageConverter extends AbstractHttpMessageConverter<Objec
                 .getRequestAttributes()).getRequest();
         OutputStream os = outputMessage.getBody();
         StringBuilder out = new StringBuilder();
-        String json = JSON.toJSONString(obj,SerializerFeature.DisableCircularReferenceDetect);
+        String json = JSON.toJSONString(obj);
         String callbackName = request.getParameter(jsonpCallbackParameterName);
         if (callbackName != null) {
             out.append(callbackName);

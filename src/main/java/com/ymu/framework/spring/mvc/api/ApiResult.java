@@ -1,7 +1,7 @@
 package com.ymu.framework.spring.mvc.api;
 
-import com.alibaba.fastjson.JSON;
 import com.ymu.framework.base.VBase;
+import org.springframework.http.HttpStatus;
 
 public class ApiResult<T> extends VBase {
 	
@@ -19,16 +19,17 @@ public class ApiResult<T> extends VBase {
 	}
 
 	public ApiResult(T result) {
-		description = "";
+		description = "成功";
 		isSuccess = true;
+		code = HttpStatus.OK.value();
 		data = result;
 	}
 
-	public void respFailure(int code, String message) {
+	public void failure(int code, String message) {
 		this.code = code;
 		description = message;
 		isSuccess = false;
-//		data = "";
+		data = (T) "";
 	}
 
 	public boolean isSuccess() {

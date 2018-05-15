@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.ymu.framework.spring.mvc.api.ApiException;
 import com.ymu.framework.spring.mvc.api.ApiOpenException;
+import com.ymu.framework.spring.mvc.api.ApiResult;
 import com.ymu.framework.utils.time.JDateTimeStyle;
 import com.ymu.framework.utils.time.JDateTimeUtils;
 import org.slf4j.Logger;
@@ -28,11 +29,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 统一异常处理。内部服务。
+ * 统一异常处理。对外服务。
  */
-public class JsonHandlerExceptionResolver extends SimpleMappingExceptionResolver {
+public class JsonHandlerExceptionResolverOpen extends SimpleMappingExceptionResolver {
 
-	static Logger log = LoggerFactory.getLogger(JsonHandlerExceptionResolver.class);
+	static Logger log = LoggerFactory.getLogger(JsonHandlerExceptionResolverOpen.class);
 
 	/**
 	 * 用于获取JSONP调用时的回调函数名的请求参数名
@@ -55,8 +56,8 @@ public class JsonHandlerExceptionResolver extends SimpleMappingExceptionResolver
 				final String callbackName = request.getParameter(jsonpCallbackParameterName);
 				HandlerMethod handlerMethod = (HandlerMethod) handler;
 				if (handlerMethod.getMethodAnnotation(ResponseBody.class) != null
-						|| handlerMethod.getBeanType().getAnnotation(ResponseBody.class) != null
 						|| handlerMethod.getBeanType().getAnnotation(RestController.class) != null
+						|| handlerMethod.getBeanType().getAnnotation(ResponseBody.class) != null
 						|| callbackName != null) {
 					return handleExceptionMessage(request, response, ex, callbackName);
 				}
@@ -70,12 +71,13 @@ public class JsonHandlerExceptionResolver extends SimpleMappingExceptionResolver
 	private ModelAndView handleExceptionMessage(HttpServletRequest request, HttpServletResponse response, Exception ex,
                                                 final String callbackName) {
 		response.resetBuffer();
+
 		return new ModelAndView(new View() {
 			@Override
 			public void render(Map<String, ?> model, HttpServletRequest request, HttpServletResponse response)
 					throws Exception {
-				response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
 				response.setContentType(getContentType());
+				response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
 				PrintWriter out = response.getWriter();
 				try {
 					handleExceptionJsonMessage(out, ex, callbackName);
@@ -92,7 +94,8 @@ public class JsonHandlerExceptionResolver extends SimpleMappingExceptionResolver
 	}
 
 	public static void handleExceptionJsonMessage(PrintWriter out, Exception ex, String callbackName) {
-		Map<String, Object> data = new HashMap<>();
+		ApiResult<String> apiResult = new ApiResult<>();
+
 		Throwable throwable;
 		if (ex != null && ex.getCause() != null && ex.getMessage() != null) {
 			throwable = ex.getCause();
@@ -103,45 +106,19 @@ public class JsonHandlerExceptionResolver extends SimpleMappingExceptionResolver
 		try (PrintWriter printWriter = new PrintWriter(stringWriter)){
 			throwable.printStackTrace(printWriter);
 		}
-		data.put("error",stringWriter.toString());
 		log.error("The handleExceptionJsonMessage will handled this exception.", throwable);
-		if (throwable instanceof ApiException) {
-            ApiException apiException = (ApiException) throwable;
-            data.put("message", apiException.getMessage());
-            data.put("status", apiException.getCode());
-        } else if (throwable instanceof MethodArgumentNotValidException) {
-            StringBuilder errorMessageBuilder = new StringBuilder();
-            MethodArgumentNotValidException methodArgumentNotValidException = (MethodArgumentNotValidException) throwable;
-            BindingResult bindingResult = methodArgumentNotValidException.getBindingResult();
-            data.put("errors", bindingResult.getAllErrors());
-            for (ObjectError objectError : bindingResult.getAllErrors()) {
-                if (errorMessageBuilder.length() > 0) {
-                    errorMessageBuilder.append(";");
-                }
-                errorMessageBuilder.append(objectError.getObjectName());
-                if (objectError instanceof FieldError) {
-                    FieldError fieldError = (FieldError) objectError;
-                    errorMessageBuilder.append(".");
-                    errorMessageBuilder.append(fieldError.getField());
-                }
-                errorMessageBuilder.append(objectError.getDefaultMessage());
-            }
-            data.put("message", errorMessageBuilder);
-            data.put("status",HttpStatus.INTERNAL_SERVER_ERROR.value());
+		if (throwable instanceof ApiOpenException) {
+			apiResult.failure(((ApiOpenException) throwable).getCode(),throwable.getMessage());
         } else {
-			data.put("message","系统内部异常");
-			data.put("status",HttpStatus.INTERNAL_SERVER_ERROR.value());
+			apiResult.failure(HttpStatus.INTERNAL_SERVER_ERROR.value(),"系统内部异常，请联系系统管理员!");
         }
-		data.put("type", throwable.getClass().getCanonicalName());
-		data.put("timestamp",JDateTimeUtils.getCurrentSystemDateTime(JDateTimeStyle.YYYY_MM_DD_HH_MM.getValue()));
-		String json = JSON.toJSONString(data, SerializerFeature.DisableCircularReferenceDetect);
 		if (callbackName != null) {
             out.print(callbackName);
             out.print("(");
-            out.print(json);
+            out.print(JSON.toJSONString(apiResult));
             out.print(")");
         } else {
-            out.print(json);
+            out.print(JSON.toJSONString(apiResult));
         }
 	}
 }
