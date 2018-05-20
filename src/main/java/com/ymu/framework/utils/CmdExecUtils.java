@@ -71,4 +71,13 @@ public final class CmdExecUtils {
         return flg;
     }
 
+    /**
+     * linux系统下对可执行文件授权
+     * @param exeFilePath
+     * @return
+     */
+    public static boolean enableExe(String exeFilePath) {
+        String cmd = "chmod a+x ".concat(exeFilePath);
+        return CmdExecUtils.execCommond(cmd);
+    }
 }

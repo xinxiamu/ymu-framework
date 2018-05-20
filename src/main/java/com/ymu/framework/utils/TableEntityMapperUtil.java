@@ -120,11 +120,11 @@ public class TableEntityMapperUtil {
 		return result;
 	}
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		String entity = "StudentClass";
 		String table = "student_class_name";
 		
 		System.out.println(TableEntityMapperUtil.mapperToDB(entity));
 		System.out.println(TableEntityMapperUtil.mapperToEntity(table));
-	}
+	}*/
 }

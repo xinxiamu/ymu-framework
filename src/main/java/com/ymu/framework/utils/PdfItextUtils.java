@@ -16,6 +16,21 @@ import java.util.Map;
 
 public final class PdfItextUtils {
 
+    /*public static void main(String[] args) throws IOException, DocumentException {
+        testFont();
+    }*/
+
+    public static  void testFont() throws IOException, DocumentException {
+
+        String templates = "/home/mutian/dev/java/github/ymu-framework/src/main/resources/templates";
+        Map data = new HashMap();
+        data.put("username", "鄂州市吴穷建筑工程有限公司");
+        data.put("age", 18);
+//       String htmlText = FreemarkerUtils.newInstance(templates).getFreemarkerDealText("test.ftlh",data);
+        String htmlText = FreemarkerUtils.newInstance(templates).getFreemarkerDealText("test2.ftlh", data);
+        creatHtmlToPdf(htmlText, "/home/mutian/dev/java/github/ymu-framework/src/main/resources/bb.pdf");
+    }
+
     public static final String creatHtmlToPdf(String htmlText, String creatPdfPath) {
         try {
             File file = new File(creatPdfPath);
@@ -43,21 +58,6 @@ public final class PdfItextUtils {
         }
 
         return null;
-    }
-
-    public static void main(String[] args) throws IOException, DocumentException {
-        testFont();
-    }
-
-    public static  void testFont() throws IOException, DocumentException {
-
-        String templates = "/home/mutian/dev/java/github/ymu-framework/src/main/resources/templates";
-        Map data = new HashMap();
-        data.put("username", "鄂州市吴穷建筑工程有限公司");
-        data.put("age", 18);
-//       String htmlText = FreemarkerUtils.newInstance(templates).getFreemarkerDealText("test.ftlh",data);
-        String htmlText = FreemarkerUtils.newInstance(templates).getFreemarkerDealText("test2.ftlh", data);
-        creatHtmlToPdf(htmlText, "/home/mutian/dev/java/github/ymu-framework/src/main/resources/bb.pdf");
     }
 
 

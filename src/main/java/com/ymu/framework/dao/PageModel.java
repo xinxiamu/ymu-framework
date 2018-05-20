@@ -130,12 +130,12 @@ public class PageModel<T> {
         return new Integer[]{startIndex, endIndex};
 	}
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		PageModel<Object> p = new PageModel<Object>(5, 1, 5, 7, null);
 		Integer[] pl = p.getShowPageIndexs();
 		for (int i = pl[0]; i <= pl[1]; i++) {
 			System.out.print(i + " ");
 		}
 		
-	}
+	}*/
 }
