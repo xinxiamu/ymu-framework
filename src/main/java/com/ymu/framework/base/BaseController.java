@@ -10,6 +10,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public abstract class BaseController {
 
@@ -33,6 +34,15 @@ public abstract class BaseController {
     protected HttpServletResponse getResponse() {
         HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
         return response;
+    }
+
+    protected HttpSession getSession() {
+        HttpServletRequest request = getRequest();
+        if (request != null) {
+            return request.getSession();
+        }
+
+        return null;
     }
 
 }

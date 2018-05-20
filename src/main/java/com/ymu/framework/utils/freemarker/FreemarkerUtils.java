@@ -4,15 +4,20 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.StringWriter;
+import java.io.*;
 
-public class FreemarkerUtils {
+public final class FreemarkerUtils {
+
+    private FreemarkerUtils(){};
 
     private static Configuration cfg;
 
     private static FreemarkerUtils freemarkerUtils;
+
+    /*public static void  main(String args[]) {
+        String a = FreemarkerUtils.class.getClassLoader().getResource("").getPath();
+        System.out.println(a);
+    }*/
 
     /**
      *
@@ -66,5 +71,25 @@ public class FreemarkerUtils {
         }
 
         return text;
+    }
+
+    /**
+     * 渲染数据到页面并输出新的html页面。
+     * @param ftlhFullName 要渲染的模板文件，在模板目录下
+     * @param targetHtmlPath 要输出的新的html文件路径
+     * @param data 模板数据
+     */
+    public void createHTML(String ftlhFullName,String targetHtmlPath,Object data)  {
+        try {
+            Template template = cfg.getTemplate(ftlhFullName);
+            File htmlFile = new File(targetHtmlPath);
+            Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(htmlFile), "UTF-8"));
+            //处理模版并开始输出静态页面
+            template.process(data, out);
+            out.flush();
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
