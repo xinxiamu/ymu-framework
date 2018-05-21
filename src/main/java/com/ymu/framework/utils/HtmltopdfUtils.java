@@ -41,8 +41,8 @@ public class HtmltopdfUtils {
      */
     private static String createTempDir(String userDir) {
         // 创建临时文件夹
-        URI uri = URI.create(userDir);
-        String tempDirPath = uri.getPath().concat(File.separator).concat("temp");
+//        URI uri = URI.create(userDir);
+        String tempDirPath = userDir.concat(File.separator).concat("temp");
         File file = new File(tempDirPath);
         if (!file.exists()) {
             file.mkdir();
@@ -92,7 +92,7 @@ public class HtmltopdfUtils {
      * @return
      */
     private String getWkhtmltopdfPathOnWindows() {
-        return "C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe";
+        return "D:\\wkhtmltopdf\\bin\\wkhtmltopdf.exe";
     }
 
     /**
