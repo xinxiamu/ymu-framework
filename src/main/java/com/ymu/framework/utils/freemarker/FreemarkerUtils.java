@@ -35,7 +35,11 @@ public final class FreemarkerUtils {
         if (freemarkerUtils.cfg == null) {
              cfg = new Configuration(Configuration.VERSION_2_3_27);
 
-            cfg.setDirectoryForTemplateLoading(new File(templatesPath));
+//            cfg.setDirectoryForTemplateLoading(new File(templatesPath)); //打成jar包文件路径会出错
+
+            ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+            String path = classloader.getResource(templatesPath).getPath();
+            cfg.setClassForTemplateLoading(FreemarkerUtils.class, path);
 
             cfg.setDefaultEncoding("UTF-8");
             cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
