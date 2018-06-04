@@ -133,7 +133,8 @@ public class JsonHandlerExceptionResolver extends SimpleMappingExceptionResolver
 			data.put("status",HttpStatus.INTERNAL_SERVER_ERROR.value());
         }
 		data.put("type", throwable.getClass().getCanonicalName());
-		data.put("timestamp",JDateTimeUtils.getCurrentSystemDateTime(JDateTimeStyle.YYYY_MM_DD_HH_MM.getValue()));
+//		data.put("timestamp",JDateTimeUtils.getCurrentSystemDateTime(JDateTimeStyle.YYYY_MM_DD_HH_MM.getValue()));
+		data.put("timestamp",System.currentTimeMillis());
 		String json = JSON.toJSONString(data, SerializerFeature.DisableCircularReferenceDetect);
 		if (callbackName != null) {
             out.print(callbackName);
