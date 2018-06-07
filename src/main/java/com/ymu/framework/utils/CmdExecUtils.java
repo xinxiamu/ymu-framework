@@ -80,4 +80,14 @@ public final class CmdExecUtils {
         String cmd = "chmod a+x ".concat(exeFilePath);
         return CmdExecUtils.execCommond(cmd);
     }
+
+    /**
+     * 文件可读权限。
+     * @param exeFilePath
+     * @return
+     */
+    public static boolean chownR(String exeFilePath) {
+        String cmd = " chown -R root:root ".concat(exeFilePath);
+        return execCommond(cmd);
+    }
 }

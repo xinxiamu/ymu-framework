@@ -19,9 +19,6 @@ public class HtmltopdfUtils {
 
     private static String tempDir;
 
-     /*@Value("${user.dir}")
-	private String userDir;*/
-
     public static HtmltopdfUtils newInstance(String userDir) {
         if (htmltopdfUtils == null) {
             htmltopdfUtils = new HtmltopdfUtils();
@@ -29,7 +26,6 @@ public class HtmltopdfUtils {
         tempDir = createTempDir(userDir);
         return htmltopdfUtils;
     }
-
 
     /**
      * 创建临时文件夹。
@@ -40,7 +36,7 @@ public class HtmltopdfUtils {
      */
     private static String createTempDir(String userDir) {
         // 创建临时文件夹
-//        URI uri = URI.create(userDir);
+//		URI uri = URI.create(userDir);
         String tempDirPath = userDir.concat(File.separator).concat("temp");
         File file = new File(tempDirPath);
         if (!file.exists()) {
@@ -66,6 +62,25 @@ public class HtmltopdfUtils {
                 InputStream inputStream = HtmltopdfUtils.class.getClassLoader().getResourceAsStream("bin/wkhtmltopdf");
                 FileUtils.copyToFile(inputStream, wkhtmltopdf);
                 CmdExecUtils.enableExe(wkhtmltopdfPath);
+
+
+                File fontsFile = new File("/usr/share/fonts/");
+                if (!fontsFile.exists()) {
+                    CmdExecUtils.execCommond("mkdir /usr/share/fonts/");
+                }
+            }
+
+            File fontFile = new File(tempDir.concat(File.separator).concat("simsun.ttc"));
+            if (!fontFile.exists()) {
+                fontFile.createNewFile();
+
+                InputStream inputStream1 = HtmltopdfUtils.class.getClassLoader().getResourceAsStream("bin/simsun.ttc");
+                FileUtils.copyToFile(inputStream1, fontFile);
+                String script = "mv " + fontFile.getAbsolutePath() + " /usr/share/fonts/";
+                System.out.println(">>>mv script:" + script);
+                CmdExecUtils.execCommond(script);
+
+                CmdExecUtils.chownR("/usr/share/fonts/simsun.ttc");
             }
 
             return wkhtmltopdfPath;
@@ -91,7 +106,7 @@ public class HtmltopdfUtils {
      * @return
      */
     private String getWkhtmltopdfPathOnWindows() {
-        return "D:\\wkhtmltopdf\\bin\\wkhtmltopdf.exe";
+        return "C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe"; //改成自己的安装路径
     }
 
     /**
