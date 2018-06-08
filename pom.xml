@@ -48,6 +48,7 @@
             <version>${fastdfs-client.java.version}</version>
         </dependency>
 
+        <!--/////////////////// spring-boot start ///////////////////-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
@@ -57,6 +58,7 @@
                     <artifactId>spring-boot-starter-logging</artifactId>
                 </exclusion>
             </exclusions>
+            <optional>true</optional>
         </dependency>
 
         <dependency>
@@ -72,6 +74,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
+            <optional>true</optional>
         </dependency>
 
         <dependency>
@@ -83,18 +86,21 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <optional>true</optional>
         </dependency>
 
         <!-- email -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
+            <optional>true</optional>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+            <optional>true</optional>
         </dependency>
 
         <!--把属性文件配置转换成类-->
@@ -103,6 +109,8 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
+
+        <!--/////////////////////// spring-boot end ///////////////-->
 
         <!--////////// Apache common start /////////// -->
         <dependency>
