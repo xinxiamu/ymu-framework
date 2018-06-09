@@ -24,22 +24,24 @@ public class CustomObjectMapper extends ObjectMapper {
             }
         });
 
-        //把boolean转成1或0表示
+
         SimpleModule module = new SimpleModule();
-        module.addSerializer(boolean.class, new JsonSerializer<Boolean>() {
+
+        //把boolean转成1或0表示
+       /* module.addSerializer(boolean.class, new JsonSerializer<Boolean>() {
             @Override
             public void serialize(Boolean value, JsonGenerator jgen, SerializerProvider provider) throws IOException {
                 jgen.writeNumber(value ? 1 : 0);
             }
-        });
+        });*/
 
         //把Boolean转成1或0表示
-        module.addSerializer(Boolean.class, new JsonSerializer<Boolean>() {
+        /*module.addSerializer(Boolean.class, new JsonSerializer<Boolean>() {
             @Override
             public void serialize(Boolean value, JsonGenerator jgen, SerializerProvider provider) throws IOException {
                 jgen.writeNumber(value ? 1 : 0);
             }
-        });
+        });*/
 
         //日期
         module.addSerializer(Date.class, new JsonSerializer<Date>() {

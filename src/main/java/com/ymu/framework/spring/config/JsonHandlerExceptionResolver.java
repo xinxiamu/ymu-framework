@@ -8,6 +8,7 @@ import com.ymu.framework.utils.time.JDateTimeStyle;
 import com.ymu.framework.utils.time.JDateTimeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -76,6 +77,7 @@ public class JsonHandlerExceptionResolver extends SimpleMappingExceptionResolver
 					throws Exception {
 				response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
 				response.setContentType(getContentType());
+				response.addHeader("m-error-type","service-inner");
 				PrintWriter out = response.getWriter();
 				try {
 					handleExceptionJsonMessage(out, ex, callbackName);
