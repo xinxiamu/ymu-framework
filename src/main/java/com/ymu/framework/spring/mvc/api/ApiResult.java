@@ -16,6 +16,7 @@ public class ApiResult<T> extends VBase {
 	private T data = null;
 
 	public ApiResult() {
+
 	}
 
 	public ApiResult(T result) {
@@ -30,6 +31,23 @@ public class ApiResult<T> extends VBase {
 		description = message;
 		isSuccess = false;
 		data = (T) "";
+	}
+
+	public static ApiResult ok() {
+		ApiResult<Object> apiResult = new ApiResult<>();
+		apiResult.setDescription("成功");
+		apiResult.setSuccess(true);
+		apiResult.setCode(HttpStatus.OK.value());
+		return apiResult;
+	}
+
+	public static ApiResult error(int code, String message) {
+		ApiResult<Object> apiResult = new ApiResult<>();
+		apiResult.setDescription(message);
+		apiResult.setSuccess(false);
+		apiResult.setCode(code);
+		apiResult.setData("");
+		return apiResult;
 	}
 
 	public boolean isSuccess() {
