@@ -38,25 +38,25 @@ public final class Base64Utils {
 	}
 
 	/**
-	 * base64字符串转化成图片
+	 * base64字符串转化成文件
 	 * 
-	 * @param imgStr
+	 * @param base64Str
 	 *            图片base64字符串
-	 * @param imgDestinationPath
+	 * @param fileDestinationPath
 	 *            解码生成图片保存的路径
 	 * @return 返回图片保存路径，否则返回null
 	 */
-	public static String generateImgByBase64Str(String imgStr, String imgDestinationPath) {
+	public static String generateFileByBase64Str(String base64Str, String fileDestinationPath) {
 		try {
-			if (imgStr == null || imgDestinationPath == null) { // 图像数据为空
+			if (base64Str == null || base64Str == null) { // 图像数据为空
 				throw new NullPointerException("图片base64字符串为NULL");
 			}
 
 			// 解码
-			byte[] data = base64DecodeToBytes(imgStr);
-			FileUtils.writeByteArrayToFile(new File(imgDestinationPath), data);
+			byte[] data = base64DecodeToBytes(base64Str);
+			FileUtils.writeByteArrayToFile(new File(fileDestinationPath), data);
 
-			return imgDestinationPath;
+			return fileDestinationPath;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
