@@ -2,9 +2,11 @@ package com.ymu.framework.utils.security;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 
 /**
  * Base64工具类。基于apche common code库。
@@ -18,15 +20,28 @@ public final class Base64Utils {
 	}
 
 	/**
-	 * 将图片文件转化为字节数组字符串，并对其进行Base64编码处理
+	 * 将文件转化为字节数组字符串，并对其进行Base64编码处理
 	 * 
-	 * @param imgPath
-	 *            图片所在路径。
+	 * @param filePath
+	 *            文件所在路径。
 	 * @return 返回图片生成base64码的字符串，否则返回null
 	 */
-	public static String getImageBase64Str(String imgPath) {
+	public static String getFileBase64Str(String filePath) {
 		try {
-			byte[] data = FileUtils.readFileToByteArray(new File(imgPath));
+			byte[] data = FileUtils.readFileToByteArray(new File(filePath));
+			// 对字节数组Base64编码
+			String str = base64Encode(data);
+			return str;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	public static String getFileBase64Str(InputStream fileInputStream) {
+		try {
+			byte[] data = IOUtils.toByteArray(fileInputStream);
 			// 对字节数组Base64编码
 			String str = base64Encode(data);
 			return str;

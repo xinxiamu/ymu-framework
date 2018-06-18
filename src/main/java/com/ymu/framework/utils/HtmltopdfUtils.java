@@ -115,10 +115,11 @@ public class HtmltopdfUtils {
      * @param args
      * @return
      */
-    private boolean createPdf(String... args) {
+    public static boolean createPdf(String... args) {
         return CmdExecUtils.execCommond(args);
     }
 
+    @Deprecated
     public boolean creatPdf(ArrayList<String> htmlFilePaths, String pdfFileName) {
         if (htmlFilePaths == null || htmlFilePaths.isEmpty()) {
             throw new NullPointerException("没有html文件");
@@ -139,6 +140,43 @@ public class HtmltopdfUtils {
         }
         sb.append(pdfFileName);
         return createPdf(sb.toString());
+    }
+
+    /**
+     * wkhtmltopdf执行命令把html转成pdf。
+     * @param wkhtmltopdfPath
+     * @param pdfFileName
+     * @param htmlFilePaths
+     * @return
+     */
+    public static boolean createPdf(String wkhtmltopdfPath,String pdfFileName,String...htmlFilePaths) {
+        if (wkhtmltopdfPath == null || wkhtmltopdfPath.isEmpty()) {
+            throw new NullPointerException("请指定可执行文件wkhtmltopdf");
+        }
+        if (!(new File(wkhtmltopdfPath)).exists()) {
+            throw new IllegalStateException("可执行文件wkhtmltopdf不存在");
+        }
+        if (pdfFileName == null || "".equals(pdfFileName)) {
+            throw new NullPointerException("生成的pdf文件名不能空");
+        }
+        if (htmlFilePaths == null || htmlFilePaths.length == 0) {
+            throw new NullPointerException("没有html文件");
+        }
+
+        if (htmlFilePaths.length == 1) {
+          return CmdExecUtils.execCommond(wkhtmltopdfPath,htmlFilePaths[0],pdfFileName);
+        }
+
+        // 执行并输出pdf
+        StringBuilder sb = new StringBuilder(wkhtmltopdfPath).append(" ");
+        for (String htmlFilePath : htmlFilePaths) {
+            sb.append(htmlFilePath).append(" ");
+        }
+        sb.append(pdfFileName);
+        String shellScript = sb.toString().trim();
+        logger.debug(String.format("createPdf 要执行命令：%s",shellScript));
+
+        return createPdf(shellScript);
     }
 
 }

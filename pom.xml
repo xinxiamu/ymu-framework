@@ -399,6 +399,11 @@
                     <compilerArgs>
                         <arg>-Xlint:varargs</arg>
                     </compilerArgs>
+                    <!--不打包下面文件-->
+                    <excludes>
+                        <exclude>**/simsun.ttc</exclude>
+                        <exclude>**/wkhtmltopdf</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
 
