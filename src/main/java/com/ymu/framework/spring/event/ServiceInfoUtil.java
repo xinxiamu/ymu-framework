@@ -7,6 +7,7 @@ import org.springframework.util.Assert;
 
 @Configuration
 public class ServiceInfoUtil implements ApplicationListener<EmbeddedServletContainerInitializedEvent> {
+
     private static EmbeddedServletContainerInitializedEvent event;
 
     @Override

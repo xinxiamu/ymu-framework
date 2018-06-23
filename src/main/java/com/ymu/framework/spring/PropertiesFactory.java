@@ -1,17 +1,19 @@
 package com.ymu.framework.spring;
 
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
+import org.springframework.stereotype.Component;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
 
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
-import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
-
 /**
  * 调用该类中的方法获取配置文件中的key-value值
  */
+@Component
 public class PropertiesFactory extends PropertyPlaceholderConfigurer {
 
 	public static Map<String, Object> NAME_VALUE_PAIR_ALL;

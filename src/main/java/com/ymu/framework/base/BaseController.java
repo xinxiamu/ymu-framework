@@ -20,6 +20,9 @@ public abstract class BaseController {
     @Value("${spring.application.name}")
     private String appName;
 
+    @Value("${app.tmp-dir}")
+    protected String appTmpDir;
+
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
     }
