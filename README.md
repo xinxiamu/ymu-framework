@@ -1,2 +1,2 @@
 # ymu-framework
-基于spring-boot的开发框架
+基于spring-boot 2.X的开发框架
