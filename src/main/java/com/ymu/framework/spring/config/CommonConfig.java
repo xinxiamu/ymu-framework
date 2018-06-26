@@ -8,6 +8,7 @@ import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -139,5 +140,14 @@ public class CommonConfig {
         registration.setName("indexFilter");
         registration.setOrder(1);
         return registration;
+    }
+
+    /**
+     * 初始化tomcat服务器工厂类。注入该类可以获取tomcat服务器的一些信息，如启动的端口等。
+     * @return 返回工厂对象
+     */
+    @Bean
+    public TomcatServletWebServerFactory tomcatServletWebServerFactory() {
+        return new TomcatServletWebServerFactory();
     }
 }

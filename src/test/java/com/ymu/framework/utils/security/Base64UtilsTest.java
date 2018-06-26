@@ -26,9 +26,9 @@ public class Base64UtilsTest {
 		Base64Utils.generateFileByBase64Str(img, outputPath);
 	}
 	
-//	@Test
+	@Test
 	public void getImageBase64StrTest() {
-		String str = Base64Utils.getImageBase64Str("D:/用户目录/我的图片/11.png");
+		String str = Base64Utils.getFileBase64Str("D:/用户目录/我的图片/11.png");
 		System.out.println(str);
 	}
 }

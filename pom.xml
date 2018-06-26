@@ -5,7 +5,7 @@
 
     <groupId>com.ymu</groupId>
     <artifactId>ymu-framework</artifactId>
-    <version>1.0</version>
+    <version>2.0</version>
     <packaging>jar</packaging>
 
     <name>ymu-framework</name>
@@ -14,8 +14,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <!--<version>2.0.1.RELEASE</version>-->
-        <version>1.5.10.RELEASE</version>
+        <version>2.0.1.RELEASE</version>
     </parent>
 
     <properties>
@@ -24,7 +23,7 @@
         <java.version>1.8</java.version>
         <apache.common.beanutils>1.9.3</apache.common.beanutils>
         <apache.common.io.version>2.6</apache.common.io.version>
-        <apache.common.lang.version>3.3.2</apache.common.lang.version>
+        <apache.common.lang.version>3.7</apache.common.lang.version>
         <apache.common.collections4.version>4.0</apache.common.collections4.version>
         <zxing.version>3.3.0</zxing.version>
         <jodd.version>3.6.6</jodd.version>
@@ -41,11 +40,10 @@
 
     <dependencies>
 
-        <!--///// 分布式文件系统客户端start/////// -->
+        <!--从springboot1迁移到springboot2到时候用到，用完要去掉-->
         <dependency>
-            <groupId>org.csource</groupId>
-            <artifactId>fastdfs-client-java</artifactId>
-            <version>${fastdfs-client.java.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-properties-migrator</artifactId>
         </dependency>
 
         <!--/////////////////// spring-boot start ///////////////////-->
@@ -276,10 +274,23 @@
             <artifactId>javapoet</artifactId>
         </dependency>
 
+        <!--///// 分布式文件系统客户端start/////// -->
+        <dependency>
+            <groupId>org.csource</groupId>
+            <artifactId>fastdfs-client-java</artifactId>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>
         <dependencies>
+            <!--///// 分布式文件系统客户端start/////// -->
+            <dependency>
+                <groupId>org.csource</groupId>
+                <artifactId>fastdfs-client-java</artifactId>
+                <version>${fastdfs-client.java.version}</version>
+            </dependency>
+
             <!--////////// Apache common start /////////// -->
             <dependency>
                 <groupId>commons-beanutils</groupId>
@@ -287,12 +298,6 @@
                 <version>${apache.common.beanutils}</version><!--$NO-MVN-MAN-VER$ -->
             </dependency>
 
-            <!-- apache的java.lang包扩展库。JAVA基础的、通用的操作和处理。，里面有很多的工具类 -->
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-lang3</artifactId>
-                <version>${apache.common.lang.version}</version>
-            </dependency>
 
             <!-- apache java集合框架的加强使用库 -->
             <dependency>
@@ -313,12 +318,12 @@
                 <version>2.6</version>
             </dependency>
 
-            <dependency>
+          <!--  <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
-                <version>3.7</version>
+                <version>${apache.common.lang.version}</version>
             </dependency>
-
+-->
             <!--////////// jodd,java常用工具包，包含字符串处理，日期处理，等等一系列java常用工具。 分模块引入 ////////////////// -->
             <!-- http://jodd.org/ -->
             <!-- 一些工具类，包括Printf、JDateTime、StringUtil、Fast buffers等等 -->
