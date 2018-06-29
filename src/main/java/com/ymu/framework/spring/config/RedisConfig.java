@@ -1,9 +1,14 @@
 package com.ymu.framework.spring.config;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
@@ -12,33 +17,34 @@ import java.io.Serializable;
 
 
 @Configuration
+@ConditionalOnClass(RedisOperations.class)
+@EnableConfigurationProperties(RedisProperties.class)
 public class RedisConfig {
 
-    @Value("${spring.redis.host}")
-    private String redisUrl;
-    @Value("${spring.redis.port}")
-    private int port;
-    @Value("${spring.redis.password}")
-    private String pwd;
-
-	/**
-	 * 采用默认连接池
-	 * @return
-	 */
     @Bean
-    JedisConnectionFactory jedisConnectionFactory() {
-        JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
-        jedisConnectionFactory.setUsePool(true);
-        jedisConnectionFactory.setHostName(redisUrl);
-        jedisConnectionFactory.setPort(port);
-        jedisConnectionFactory.setPassword(pwd);
-        return jedisConnectionFactory;
+    @Primary
+    @Qualifier("redisTemplate")
+    public RedisTemplate redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+        RedisTemplate<Object, Object> template = new RedisTemplate<>();
+
+        //使用fastjson序列化
+        RedisSerializerFastJson fastJsonRedisSerializer = new RedisSerializerFastJson(Object.class);
+        // value值的序列化采用fastJsonRedisSerializer
+        template.setValueSerializer(fastJsonRedisSerializer);
+        template.setHashValueSerializer(fastJsonRedisSerializer);
+        // key的序列化采用StringRedisSerializer
+        template.setKeySerializer(new StringRedisSerializer());
+        template.setHashKeySerializer(new StringRedisSerializer());
+
+        template.setConnectionFactory(redisConnectionFactory);
+        return template;
     }
 
     @Bean
-    public RedisTemplate redisTemplate(JedisConnectionFactory jedisConnectionFactory) {
+    @Qualifier("redisTemplateDefault")
+    public RedisTemplate redisTemplateDefault(RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<String, Serializable> template = new RedisTemplate<>();
-        template.setConnectionFactory(jedisConnectionFactory);
+        template.setConnectionFactory(redisConnectionFactory);
         template.setKeySerializer(new StringRedisSerializer());
         template.setValueSerializer(new JdkSerializationRedisSerializer());
         template.setHashKeySerializer(new StringRedisSerializer());
@@ -46,9 +52,12 @@ public class RedisConfig {
         return template;
     }
 
-    public RedisTemplate strRedisTemplate(JedisConnectionFactory jedisConnectionFactory) {
+
+    @Bean
+    @Qualifier("stringRedisTemplate")
+    public RedisTemplate stringRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<String, String> template = new RedisTemplate<>();
-        template.setConnectionFactory(jedisConnectionFactory);
+        template.setConnectionFactory(redisConnectionFactory);
         template.setKeySerializer(new StringRedisSerializer());
         template.setValueSerializer(new JdkSerializationRedisSerializer());
         return template;
