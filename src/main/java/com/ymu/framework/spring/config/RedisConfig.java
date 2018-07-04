@@ -17,8 +17,8 @@ import java.io.Serializable;
 
 
 @Configuration
-@ConditionalOnClass(RedisOperations.class)
-@EnableConfigurationProperties(RedisProperties.class)
+//@ConditionalOnClass(RedisOperations.class)
+//@EnableConfigurationProperties(RedisProperties.class)
 public class RedisConfig {
 
     @Bean

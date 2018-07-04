@@ -41,10 +41,10 @@
     <dependencies>
 
         <!--从springboot1迁移到springboot2到时候用到，用完要去掉-->
-        <dependency>
+       <!-- <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-properties-migrator</artifactId>
-        </dependency>
+        </dependency>-->
 
         <!--/////////////////// spring-boot start ///////////////////-->
         <dependency>
