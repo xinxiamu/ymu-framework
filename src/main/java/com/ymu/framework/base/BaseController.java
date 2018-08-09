@@ -30,7 +30,7 @@ public abstract class BaseController {
     @ModelAttribute
     public void setReqAndRes(HttpServletRequest request,HttpServletResponse response) {
         System.out.println(">>>>>ModelAttribute:" + request.getLocalAddr() );
-        response.addHeader("m-service-name",appName);
+        response.addHeader("m-service-name",appName); //添加请求头-标志请求来自哪个服务
     }
 
     protected HttpServletRequest getRequest() {
