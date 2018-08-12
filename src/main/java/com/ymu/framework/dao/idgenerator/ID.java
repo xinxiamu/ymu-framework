@@ -1,4 +1,4 @@
-package com.ymu.framework.dao.entity.strategy.idgenerator;
+package com.ymu.framework.dao.idgenerator;
 
 import java.io.Serializable;
 

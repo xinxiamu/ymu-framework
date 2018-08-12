@@ -1,8 +1,24 @@
-package com.ymu.framework.dao.entity.strategy.idgenerator;
+package com.ymu.framework.dao.idgenerator;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * <p>
+ * Snowflake算法是带有时间戳的全局唯一ID生成算法。它有一套固定的ID格式，如下：
+ * <p>
+ * 41位的时间序列（精确到毫秒，41位的长度可以使用69年）
+ * 10位的机器标识（10位的长度最多支持部署1024个节点）
+ * 12位的Sequence序列号（12位的Sequence序列号支持每个节点每毫秒产生4096个ID序号）
+ * <p>
+ * 结构如下(每部分用-分开):<br>
+ * 0 - 0000000000 0000000000 0000000000 0000000000 0 - 00000 - 00000 - 000000000000 <br>
+ * 优点是：整体上按照时间自增排序，且整个分布式系统内不会产生ID碰撞(由数据中心ID和机器ID作区分)
+ * Author:frankwoo(吴峻申) <br>
+ * Date:2017/8/29 <br>
+ * Time:下午6:32 <br>
+ * Mail:frank_wjs@hotmail.com <br>
+ */
 public class SnowflakeIdWorker {
     private static final Logger log = LogManager.getLogger(SnowflakeIdWorker.class);
 
