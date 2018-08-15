@@ -1,8 +1,10 @@
 package com.ymu.framework.utils;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -21,6 +23,8 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import com.ymu.framework.utils.security.Base64Utils;
+import org.apache.commons.io.IOUtils;
 
 /**
  * 二维码处理
@@ -50,7 +54,7 @@ public final class QRCodeUtil {
 		// 指定纠错等级
 		hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
 		// 指定编码格式
-		hints.put(EncodeHintType.CHARACTER_SET, "GBK");
+		hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
 		try {
 			BitMatrix bitMatrix = new MultiFormatWriter().encode(contents, BarcodeFormat.QR_CODE, width, height, hints);
 
@@ -60,6 +64,32 @@ public final class QRCodeUtil {
 			e.printStackTrace();
 		}
 	}
+
+	public final static String encode(String contents, int width, int height) {
+		Map<EncodeHintType, Object> hints = new Hashtable<>();
+		// 指定纠错等级
+		hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
+		// 指定编码格式
+		hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
+		try {
+			ByteArrayOutputStream outputStream = new ByteArrayOutputStream(1024);
+
+			BitMatrix bitMatrix = new MultiFormatWriter().encode(contents, BarcodeFormat.QR_CODE, width, height, hints);
+
+			MatrixToImageWriter.writeToStream(bitMatrix, "png", outputStream);
+
+			byte[] bytes = outputStream.toByteArray();
+			String b64Str = Base64Utils.base64Encode(bytes);
+			System.out.println(">>>二维码base64字符串：" + b64Str);
+
+			return b64Str;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
 
 	/**
 	 * 解析二维码。

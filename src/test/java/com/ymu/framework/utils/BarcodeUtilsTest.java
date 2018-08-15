@@ -7,7 +7,7 @@ public class BarcodeUtilsTest {
 
 	@Test
 	public void encodeTest() {
-		String contents = "6923450657713";
+		String contents = "6923450657713%abc";
 		BarcodeUtil.encode(contents, 105, 50, "F:/bb.png");
 	}
 
