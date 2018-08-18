@@ -114,6 +114,12 @@
             <optional>true</optional>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jooq</artifactId>
+            <optional>true</optional>
+        </dependency>
+
         <!--/////////////////////// spring-boot end ///////////////-->
 
         <!--///// 分布式文件系统客户端start/////// -->
