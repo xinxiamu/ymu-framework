@@ -15,27 +15,7 @@ import java.util.Map;
 
 
 public class TableEntityMapperUtil {
-	/**
-	 * 把表、字段名转换为单词首字母大写形式的实体、属性名
-	 * @param name
-	 * @return
-	 */
-	public static String mapperToEntity(String name) {
-		StringBuffer result = new StringBuffer();
-		result.append(Character.toUpperCase(name.charAt(0)));
-		for (int i = 1; i < name.toCharArray().length; i++) {
-			char ch = name.charAt(i);
-			if (ch == '_') {
-				if (i+1 < name.toCharArray().length && Character.isLowerCase(name.charAt(i+1))) {
-					result.append(Character.toUpperCase(name.charAt(i+1)));
-					i++;
-					continue;
-				}
-			}
-			result.append(ch);
-		}
-		return result.toString();
-	}
+
 	/**
 	 * 把表、字段名转换为单词首字母大写形式的实体、属性名
 	 * @param name
@@ -57,6 +37,7 @@ public class TableEntityMapperUtil {
 		}
 		return result.toString();
 	}
+
 	/**
 	 * 把实体、属性名转换为加下划线(_)形式的表、字段名
 	 * @param name
