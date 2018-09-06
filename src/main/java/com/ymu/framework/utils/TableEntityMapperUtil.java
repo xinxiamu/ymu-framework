@@ -17,6 +17,26 @@ import java.util.Map;
 public class TableEntityMapperUtil {
 
 	/**
+	 * 按大小写用下划线分割字符串并转成大写。
+	 * @param fieldName
+	 * @return
+	 */
+	public static String separationDomainField(String fieldName) {
+		StringBuffer result = new StringBuffer();
+		char[] c = fieldName.toCharArray();
+		for (int i_ = 0; i_ < c.length; i_++) {
+			char ch = fieldName.charAt(i_);
+			if (Character.isUpperCase(ch) && i_ != 0) {
+				result.append("_");
+				result.append(Character.toLowerCase(ch));
+			} else {
+				result.append(ch);
+			}
+		}
+		return result.toString().toUpperCase();
+	}
+
+	/**
 	 * 把表、字段名转换为单词首字母大写形式的实体、属性名
 	 * @param name
 	 * @return

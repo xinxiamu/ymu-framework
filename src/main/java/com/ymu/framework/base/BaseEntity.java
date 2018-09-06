@@ -11,40 +11,40 @@ public abstract class BaseEntity implements Serializable, Cloneable {
      * 主键。手动调用远程接口生成分布式id，再set插入
      */
     @Id
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true,columnDefinition = "bigint(20) comment '主键id'")
     protected Long id;
 
     /**
      * 是否无效（默认是有效）
      */
-    @Column(nullable = false, columnDefinition = "decimal(1,0)")
+    @Column(nullable = false, columnDefinition = "bit(1) default 0 comment '数据是否有效，用作逻辑删除'")
     protected Boolean disabled;
 
     /**
      * 最后更新时间
      */
-    @Column(nullable = false)
+    @Column(nullable = false,columnDefinition = "datetime default current_timestamp comment '数据最后更新时间'")
     @Temporal(TemporalType.TIMESTAMP)
     protected Date lastUpdated;
 
     /**
      * 创建时间
      */
-    @Column(nullable = false)
+    @Column(nullable = false,columnDefinition = "datetime default current_timestamp comment '数据创建时间'")
     @Temporal(TemporalType.TIMESTAMP)
     protected Date dateCreated;
 
     /**
      * 数据库版本号（用于乐观锁）
      */
-    @Column(nullable = false, name = "version")
+    @Column(nullable = false, columnDefinition = "int(11) default 0 comment '乐观锁'")
     @Version
     protected Integer version;
 
     /**
      * 客户端设备类型。
      */
-    @Column(length = 50)
+    @Column(columnDefinition = "varchar(80) comment '数据终端来源'")
     @Enumerated(EnumType.STRING)
     protected ClientDeviceType clientDeviceType;
 
