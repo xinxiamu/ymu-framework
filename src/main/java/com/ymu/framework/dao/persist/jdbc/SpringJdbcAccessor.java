@@ -112,7 +112,7 @@ public final class SpringJdbcAccessor {
 		conn.setAutoCommit(false);
 		// Statement st = conn.createStatement();
 		// 比起st，pst会更好些
-		PreparedStatement pst = conn.prepareStatement("");
+		PreparedStatement pst = conn.prepareStatement(" ");
 
 		int total = values.size();
 		int step = 10000; // 提交步长,一万条插一次
