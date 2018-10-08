@@ -16,7 +16,12 @@ import org.springframework.jdbc.support.KeyHolder;
 
 import com.ymu.framework.utils.PrintUtil;
 import com.ymu.framework.utils.sql.generate.Insert;
+import org.springframework.stereotype.Component;
 
+/**
+ * spring-jdbc操作辅助类。
+ */
+@Component
 public final class SpringJdbcAccessor {
 
 	// ----------------------- insert --------------------//
