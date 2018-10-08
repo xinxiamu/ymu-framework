@@ -1,6 +1,8 @@
 package com.ymu.framework.base;
 
 import com.ymu.framework.dao.persist.jdbc.knife.JdbcBaseServiceImpl;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +18,9 @@ public class BaseService<T extends BaseEntity> extends JdbcBaseServiceImpl<T> {
 
     @Value("${app.tmp-dir}")
     protected String appTmpDir;
+
+    @Autowired
+    protected ModelMapper modelMapper;
 
     @Override
     public Map<String, Object> genMapCondition(T obj) {

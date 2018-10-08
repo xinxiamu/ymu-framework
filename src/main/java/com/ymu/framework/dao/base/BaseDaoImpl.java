@@ -8,6 +8,7 @@ import com.ymu.framework.dao.persist.jdbc.SpringJdbcAccessor;
 import com.ymu.framework.dao.persist.jdbc.knife.JdbcBaseDaoImpl;
 import com.ymu.framework.dao.persist.jdbc.knife.JdbcHelper;
 import org.jooq.DSLContext;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -31,6 +32,9 @@ public abstract class BaseDaoImpl<T extends BaseRepository,E extends BaseEntity>
 
 	@Autowired
 	protected SpringJdbcAccessor springJdbcAccessor;
+
+	@Autowired
+	protected ModelMapper modelMapper;
 
 	@Autowired
 	protected DSLContext jooqDsl;

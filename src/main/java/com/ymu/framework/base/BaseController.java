@@ -2,6 +2,8 @@ package com.ymu.framework.base;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -22,6 +24,9 @@ public abstract class BaseController {
 
     @Value("${app.tmp-dir}")
     protected String appTmpDir;
+
+    @Autowired
+    protected ModelMapper modelMapper;
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {

@@ -3,6 +3,7 @@ package com.ymu.framework.spring.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ymu.framework.base.VBase;
 import com.ymu.framework.filter.IndexFilter;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
@@ -149,5 +150,10 @@ public class CommonConfig {
     @Bean
     public TomcatServletWebServerFactory tomcatServletWebServerFactory() {
         return new TomcatServletWebServerFactory();
+    }
+
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
     }
 }
