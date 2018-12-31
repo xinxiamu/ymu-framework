@@ -19,7 +19,7 @@
     <parent>
         <groupId>com.ymu</groupId>
         <artifactId>ymu-parent</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.0.1</version>
         <relativePath/>
     </parent>
 
@@ -87,10 +87,13 @@
         <!--/////////////////////// spring-boot end ///////////////-->
 
         <!--///// 分布式文件系统客户端start/////// -->
+        <!-- https://mvnrepository.com/artifact/org.csource/fastdfs-client-java -->
         <dependency>
             <groupId>org.csource</groupId>
             <artifactId>fastdfs-client-java</artifactId>
+            <version>1.27</version>
         </dependency>
+
 
         <!--////////// Apache common start /////////// -->
         <dependency>
@@ -291,11 +294,13 @@
             <artifactId>modelmapper</artifactId>
         </dependency>
 
-        <dependency>
+        <!--<dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jms</artifactId>
-            <version>RELEASE</version>
-        </dependency>
+            &lt;!&ndash;<exclusions>&ndash;&gt;
+                &lt;!&ndash;<exclusion></exclusion>&ndash;&gt;
+            &lt;!&ndash;</exclusions>&ndash;&gt;
+        </dependency>-->
 
     </dependencies>
 
