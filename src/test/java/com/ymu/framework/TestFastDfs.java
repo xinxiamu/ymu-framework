@@ -38,7 +38,7 @@ public class TestFastDfs {
         try {
             ClientGlobal.init(conf_filename);
 
-            System.out.println("ClientGlobal.configInfo(): " + ClientGlobal.configInfo());
+//            System.out.println("ClientGlobal.configInfo(): " + ClientGlobal.configInfo());
 
             TrackerClient tracker = new TrackerClient();
             TrackerServer trackerServer = tracker.getConnection();

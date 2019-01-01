@@ -87,11 +87,9 @@
         <!--/////////////////////// spring-boot end ///////////////-->
 
         <!--///// 分布式文件系统客户端start/////// -->
-        <!-- https://mvnrepository.com/artifact/org.csource/fastdfs-client-java -->
         <dependency>
             <groupId>org.csource</groupId>
             <artifactId>fastdfs-client-java</artifactId>
-            <version>1.27</version>
         </dependency>
 
 
