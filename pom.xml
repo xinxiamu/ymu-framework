@@ -307,12 +307,6 @@
             <version>1.0.4</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.peircean.libgfapi-jni</groupId>
-            <artifactId>libgfapi-jni</artifactId>
-            <version>1.0.4</version>
-        </dependency>
-
     </dependencies>
 
     <repositories>

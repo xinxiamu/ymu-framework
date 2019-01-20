@@ -62,23 +62,8 @@ public class CommonConfig {
     @Primary
     @Qualifier(value = "jsonViewHttpMessageConverter")
     public JsonViewHttpMessageConverter jsonViewHttpMessageConverter() {
-        //Need to override some behaviour in the HAL Serializer...so let's make our own
-        CurieProvider curieProvider = getCurieProvider(beanFactory);
-        RelProvider relProvider = beanFactory.getBean(DELEGATING_REL_PROVIDER_BEAN_NAME, RelProvider.class);
-//        ObjectMapper halObjectMapper = beanFactory.getBean(HAL_OBJECT_MAPPER_BEAN_NAME, ObjectMapper.class);
-        ObjectMapper halObjectMapper = new CustomObjectMapper();
-        halObjectMapper.registerModule(new Jackson2HalModule());
-        halObjectMapper.setHandlerInstantiator(new Jackson2HalModule.HalHandlerInstantiator(relProvider, curieProvider,null));
 
-        JsonViewHttpMessageConverter halConverter = new JsonViewHttpMessageConverter(Object.class);
-//        JsonViewHttpMessageConverter halConverter = new JsonViewHttpMessageConverter(VBase.class);//请求Bean,响应Bean必须继承VBase
-        List<MediaType> list = new ArrayList<>();
-        list.add(MediaType.APPLICATION_JSON_UTF8);
-        list.add(HAL_JSON);
-        halConverter.setSupportedMediaTypes(list);
-        halConverter.setObjectMapper(halObjectMapper);
-
-        return halConverter;
+        return setJsonViewHttpMessageConverter(Object.class);
     }
 
     /**
@@ -88,6 +73,12 @@ public class CommonConfig {
     @Bean
     @Qualifier(value = "jsonViewHttpMessageConverterOpen")
     public JsonViewHttpMessageConverter jsonViewHttpMessageConverterOpen() {
+
+        return setJsonViewHttpMessageConverter(VBase.class);
+    }
+
+    private JsonViewHttpMessageConverter setJsonViewHttpMessageConverter(Class clazz) {
+        //Need to override some behaviour in the HAL Serializer...so let's make our own
         CurieProvider curieProvider = getCurieProvider(beanFactory);
         RelProvider relProvider = beanFactory.getBean(DELEGATING_REL_PROVIDER_BEAN_NAME, RelProvider.class);
 //        ObjectMapper halObjectMapper = beanFactory.getBean(HAL_OBJECT_MAPPER_BEAN_NAME, ObjectMapper.class);
@@ -95,7 +86,8 @@ public class CommonConfig {
         halObjectMapper.registerModule(new Jackson2HalModule());
         halObjectMapper.setHandlerInstantiator(new Jackson2HalModule.HalHandlerInstantiator(relProvider, curieProvider,null));
 
-        JsonViewHttpMessageConverter halConverter = new JsonViewHttpMessageConverter(VBase.class);//请求Bean,响应Bean必须继承VBase
+        JsonViewHttpMessageConverter halConverter = new JsonViewHttpMessageConverter(clazz);
+//        JsonViewHttpMessageConverter halConverter = new JsonViewHttpMessageConverter(VBase.class);//请求Bean,响应Bean必须继承VBase
         List<MediaType> list = new ArrayList<>();
         list.add(MediaType.APPLICATION_JSON_UTF8);
         list.add(HAL_JSON);

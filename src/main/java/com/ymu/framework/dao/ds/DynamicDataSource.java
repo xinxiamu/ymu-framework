@@ -10,7 +10,7 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
 
     @Override
     protected Object determineCurrentLookupKey() {
-        log.debug("数据源为{}", DataSourceContextHolder.getDS());
+        log.info("数据源为{}", DataSourceContextHolder.getDS());
         //可以做一个简单的负载均衡策略
         return DataSourceContextHolder.getDS();
     }
